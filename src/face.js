@@ -16,7 +16,7 @@ export class FaceTracker {
 
 	async init() {
 		const fileset = await FilesetResolver.forVisionTasks(
-			"/node_modules/@mediapipe/tasks-vision/wasm"
+			"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm"
 		);
 
 		this.landmarker = await FaceLandmarker.createFromOptions(fileset, {
