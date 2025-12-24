@@ -16,7 +16,7 @@ export class FaceTracker {
 
 	async init() {
 		const fileset = await FilesetResolver.forVisionTasks(
-			`${import.meta.env.BASE_URL}wasm`
+			`${import.meta.env.BASE_URL}wasm/`
 		);
 
 		this.landmarker = await FaceLandmarker.createFromOptions(fileset, {
