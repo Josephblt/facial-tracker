@@ -1,0 +1,21 @@
+{
+  "name": "facial-tracker",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  
+  "devDependencies": {
+    "kill-port": "^2.0.1",
+    "vite": "^7.2.4"
+  },
+
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10"
+  }
+}
