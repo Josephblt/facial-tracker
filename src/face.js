@@ -38,9 +38,12 @@ export class FaceTracker {
 	}
 
 	sync_canvas_video(canvas, video) {
-		if (video.videoWidth && video.videoHeight) {
-			if (canvas.width !== video.videoWidth) canvas.width = video.videoWidth;
-			if (canvas.height !== video.videoHeight) canvas.height = video.videoHeight;
+		// canvas.width/height are already set in resizeCanvasDisplay; keep them in sync with displayed size.
+		const targetWidth = canvas.clientWidth;
+		const targetHeight = canvas.clientHeight;
+		if (targetWidth && targetHeight) {
+			if (canvas.width !== targetWidth) canvas.width = targetWidth;
+			if (canvas.height !== targetHeight) canvas.height = targetHeight;
 		}
 	}
 

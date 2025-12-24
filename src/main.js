@@ -42,13 +42,34 @@ async function loadCameras() {
 function resizeCanvasDisplay() {
 	if (!video.videoWidth || !video.videoHeight) return;
 
-	const frameRect = frame.getBoundingClientRect();
-	const maxWidth = frameRect.width;
-	const maxHeight = frameRect.height;
+	const horizontalPadding = 32; // body side padding (approx)
+	const paddingTop = 20; // matches body top padding
+	const paddingBottom = 16; // matches body bottom padding
+
+	const selectRect = cameraSelect.getBoundingClientRect();
+	const statusRect = status.getBoundingClientRect();
+	const controlsHeight = selectRect.height || 0;
+	const statusHeight = statusRect.height || 0;
+
+	// account for margins between elements (roughly 12px each) plus a small buffer
+	const verticalGaps = 24 + 12; // select margin + buffer
+
+	const maxWidth = Math.max(0, window.innerWidth - horizontalPadding);
+	const maxHeight = Math.max(
+		0,
+		window.innerHeight - (paddingTop + paddingBottom + controlsHeight + statusHeight + verticalGaps)
+	);
 	const scale = Math.min(maxWidth / video.videoWidth, maxHeight / video.videoHeight);
 
-	canvas.style.width = `${Math.round(video.videoWidth * scale)}px`;
-	canvas.style.height = `${Math.round(video.videoHeight * scale)}px`;
+	const displayWidth = Math.round(video.videoWidth * scale);
+	const displayHeight = Math.round(video.videoHeight * scale);
+
+	frame.style.width = `${displayWidth}px`;
+	frame.style.height = `${displayHeight}px`;
+	canvas.style.width = `${displayWidth}px`;
+	canvas.style.height = `${displayHeight}px`;
+	canvas.width = displayWidth;
+	canvas.height = displayHeight;
 }
 
 function handleCanvasClick(event) {
