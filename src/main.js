@@ -2,10 +2,33 @@ import { CameraManager } from "./camera.js";
 import { FaceTracker } from "./face.js";
 import { GlobalConsole } from "./console.js";
 
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const frame = document.getElementById("frame");
-const cameraSelect = document.getElementById("cameraSelect");
+function createUI() {
+	const appRoot = document.getElementById("app") || document.body;
+
+	const select = document.createElement("select");
+	select.id = "cameraSelect";
+
+	const frame = document.createElement("div");
+	frame.id = "frame";
+
+	const video = document.createElement("video");
+	video.id = "video";
+	video.setAttribute("autoplay", "");
+	video.setAttribute("playsinline", "");
+	video.muted = true;
+
+	const canvas = document.createElement("canvas");
+	canvas.id = "canvas";
+
+	frame.appendChild(video);
+	frame.appendChild(canvas);
+	appRoot.appendChild(select);
+	appRoot.appendChild(frame);
+
+	return { video, canvas, frame, cameraSelect: select };
+}
+
+const { video, canvas, frame, cameraSelect } = createUI();
 
 const camera_manager = new CameraManager(video);
 const face_tracker = new FaceTracker();
