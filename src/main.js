@@ -1,41 +1,41 @@
 import { CameraManager } from "./camera.js";
 import { FaceTracker } from "./face.js";
-
+import { GlobalConsole } from "./console.js";
 
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const frame = document.getElementById("frame");
-const status = document.getElementById("status");
 const cameraSelect = document.getElementById("cameraSelect");
 
 const camera_manager = new CameraManager(video);
 const face_tracker = new FaceTracker();
+const app_console = new GlobalConsole();
+window.appConsole = app_console;
 
 async function loadCameras() {
-  	status.textContent = "Loading cameras…";
+	console.info("Loading cameras...");
 
-  	const cameras = await camera_manager.getCameras();
+	const cameras = await camera_manager.getCameras();
 
-  	cameraSelect.innerHTML = "";
+	cameraSelect.innerHTML = "";
 
-  	cameras.forEach((cam, index) => {
-    	const option = document.createElement("option");
-    	option.value = cam.deviceId;
-    	option.textContent = cam.label || `Camera ${index + 1}`;
-    	cameraSelect.appendChild(option);
-  	});
+	cameras.forEach((cam, index) => {
+		const option = document.createElement("option");
+		option.value = cam.deviceId;
+		option.textContent = cam.label || `Camera ${index + 1}`;
+		cameraSelect.appendChild(option);
+	});
 
 	if (cameras.length > 0) {
-			await camera_manager.start(cameras[0].deviceId);
-			status.textContent = "Camera started.";
+		await camera_manager.start(cameras[0].deviceId);
+		console.info("Camera started", cameras[0]);
 	} else {
-			status.textContent = "No cameras found.";
+		console.warn("No cameras found.");
 	}
   
 	cameraSelect.addEventListener("change", async () => {
-		status.textContent = "Switching camera…";
 		await camera_manager.switch(cameraSelect.value);
-		status.textContent = "Camera started.";
+		console.info("Switched camera", cameraSelect.value);
 	});
 }
 
@@ -47,17 +47,15 @@ function resizeCanvasDisplay() {
 	const paddingBottom = 16; // matches body bottom padding
 
 	const selectRect = cameraSelect.getBoundingClientRect();
-	const statusRect = status.getBoundingClientRect();
 	const controlsHeight = selectRect.height || 0;
-	const statusHeight = statusRect.height || 0;
 
 	// account for margins between elements (roughly 12px each) plus a small buffer
-	const verticalGaps = 24 + 12; // select margin + buffer
+	const verticalGaps = 24; // select margin + buffer
 
 	const maxWidth = Math.max(0, window.innerWidth - horizontalPadding);
 	const maxHeight = Math.max(
 		0,
-		window.innerHeight - (paddingTop + paddingBottom + controlsHeight + statusHeight + verticalGaps)
+		window.innerHeight - (paddingTop + paddingBottom + controlsHeight + verticalGaps)
 	);
 	const scale = Math.min(maxWidth / video.videoWidth, maxHeight / video.videoHeight);
 
@@ -83,11 +81,11 @@ function handleCanvasClick(event) {
 }
 
 async function loop() {
-  	if (camera_manager.isStreaming()) {
+	if (camera_manager.isStreaming()) {
 		face_tracker.draw(canvas, video);
-  	}
+	}
 
-  	requestAnimationFrame(loop);
+	requestAnimationFrame(loop);
 }
 
 async function start() {
