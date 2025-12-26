@@ -1,6 +1,9 @@
-import { CameraManager } from "./camera.js";
-import { FaceTracker } from "./face.js";
-import { GlobalConsole } from "./console.js";
+import { CameraManager } from "./camera";
+import { FaceTracker } from "./face";
+import { ConsoleService } from "./services/consoleService";
+import { ConsolePanel } from "./ui/consolePanel";
+import "./styles/main.css";
+import type { LogLevel } from "./dto/log";
 
 function createUI() {
 	const appRoot = document.getElementById("app") || document.body;
@@ -32,8 +35,33 @@ const { video, canvas, frame, cameraSelect } = createUI();
 
 const camera_manager = new CameraManager(video);
 const face_tracker = new FaceTracker();
-const app_console = new GlobalConsole();
-window.appConsole = app_console;
+const console_service = new ConsoleService();
+const console_panel = new ConsolePanel(console_service);
+// exposed for debugging
+(window as any).appConsole = console_service;
+
+function hookConsoleToService(service: ConsoleService) {
+	const original = {
+		log: console.log,
+		info: console.info,
+		warn: console.warn,
+		error: console.error
+	};
+
+	const forward = (level: LogLevel, fn: (...args: unknown[]) => void) => {
+		return (...args: unknown[]) => {
+			fn(...args);
+			service.add(level, ...args);
+		};
+	};
+
+	console.log = forward("info", original.log);
+	console.info = forward("info", original.info);
+	console.warn = forward("warn", original.warn);
+	console.error = forward("error", original.error);
+}
+
+hookConsoleToService(console_service);
 
 async function loadCameras() {
 	console.info("Loading cameras...");
@@ -93,7 +121,7 @@ function resizeCanvasDisplay() {
 	canvas.height = displayHeight;
 }
 
-function handleCanvasClick(event) {
+function handleCanvasClick(event: MouseEvent) {
 	const rect = canvas.getBoundingClientRect();
 	if (!rect.width || !rect.height) return;
 	const scaleX = canvas.width / rect.width;

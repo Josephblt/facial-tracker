@@ -1,0 +1,231 @@
+:root {
+	--console-info: #46a0ff;
+	--console-warn: #f2c94c;
+	--console-error: #ff6b6b;
+	--console-surface: #101010;
+	--console-surface-2: #0b0b0b;
+	--console-border: #2b2b2b;
+	--console-foreground: #f2f2f2;
+	--console-shadow: 0 10px 24px rgba(0,0,0,0.45);
+	--console-shadow-strong: 0 18px 50px rgba(0,0,0,0.65);
+	--console-inset: inset 0 1px 0 rgba(255,255,255,0.08);
+	--console-launcher-size: 64px;
+	--console-badge-size: calc(var(--console-launcher-size) * .35);
+	--console-dialog-max-width: 560px;
+	--console-dialog-max-height: 520px;
+	--console-toggle-size: 40px;
+	--console-toggle-font: 18px;
+}
+
+.app-console {
+	position: fixed;
+	inset: auto 20px 20px auto;
+	z-index: 1200;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 12px;
+}
+
+.console-button {
+	border-radius: 50%;
+	border: 1px solid #2a2a2a;
+	background: radial-gradient(circle at 30% 30%, #1e1e1e, #101010 65%);
+	color: var(--console-foreground);
+	--console-level-color: var(--console-surface);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: var(--console-shadow), var(--console-inset);
+	transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+.console-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 26px rgba(0,0,0,0.55), var(--console-inset);
+}
+
+.console-button:active {
+	transform: translateY(0);
+}
+
+.console-badge {
+	--console-level-color: var(--console-info);
+	cursor: default;
+	background: var(--console-level-color);
+	color: #0f0f0f;
+	pointer-events: none;
+}
+
+.console-launcher {
+	position: relative;
+	width: var(--console-launcher-size);
+	height: var(--console-launcher-size);
+	--console-level-color: var(--console-surface);
+}
+
+.console-launcher--hidden {
+	display: none;
+}
+
+.console-launcher__badges {
+	position: absolute;
+	bottom: -5px;
+	left: 50%;	
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: row;
+	gap: 3px;
+	align-items: center;
+}
+
+.console-launcher__badge {
+	width: var(--console-badge-size);
+	height: var(--console-badge-size);
+	aspect-ratio: 1 / 1;
+	padding: 0;
+	border-radius: 50%;
+	color: #0f0f0f;
+	font-size: 10px;
+	font-weight: 700;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.console-launcher__badge.is-hidden {
+	display: none;
+}
+
+.console-launcher__badge--info { --console-level-color: var(--console-info); }
+.console-launcher__badge--warn { --console-level-color: var(--console-warn); }
+.console-launcher__badge--error { --console-level-color: var(--console-error); }
+
+.console-launcher__icon {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	color: #f2f2f2;
+}
+
+.console-launcher__icon svg {
+	width: 100%;
+	height: 100%;
+	color: inherit;
+}
+
+.console-dialog {
+	width: min(92vw, var(--console-dialog-max-width));
+	max-height: min(70vh, var(--console-dialog-max-height));
+	background: #0d0d0d;
+	border: 1px solid #2a2a2a;
+	border-radius: 16px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	box-shadow: var(--console-shadow-strong);
+	transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.console-dialog--hidden {
+	display: none;
+}
+
+.console-dialog__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 12px 12px 16px;
+	border-bottom: 1px solid #1c1c1c;
+	background: linear-gradient(180deg, #131313, #0f0f0f);
+}
+
+.console-dialog__title {
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+}
+
+.console-dialog__close {
+	width: 36px;
+	height: 36px;
+	font-size: 18px;
+	border-radius: 50%;
+	border: 1px solid #2b2b2b;
+	background: #181818;
+	color: #f5f5f5;
+	box-shadow: 0 10px 18px rgba(0,0,0,0.45), var(--console-inset);
+}
+
+.console-dialog__logs {
+	flex: 1;
+	overflow-y: auto;
+	padding: 24px 24px 28px 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.console-log {
+	display: grid;
+	grid-template-columns: 90px 70px 1fr auto;
+	align-items: center;
+	column-gap: 12px;
+	background: rgba(255,255,255,0.03);
+	border: 1px solid rgba(255,255,255,0.04);
+	border-radius: 10px;
+	padding: 12px;
+}
+
+.console-log--unread {
+	background: rgba(255,255,255,0.055);
+}
+
+.console-log__time {
+	color: #9aa0a6;
+	font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 12px;
+}
+
+.console-log__level {
+	font-weight: 700;
+	letter-spacing: 0.05em;
+}
+
+.console-log--info .console-log__level { color: var(--console-info); }
+.console-log--warn .console-log__level { color: var(--console-warn); }
+.console-log--error .console-log__level { color: var(--console-error); }
+
+.console-log__message {
+	word-break: break-word;
+	color: #e6e6e6;
+}
+
+.console-log__toggle {
+	width: var(--console-toggle-size);
+	height: var(--console-toggle-size);
+	font-size: var(--console-toggle-font);
+	border-radius: 50%;
+	border: 1px solid #2b2b2b;
+	background: #181818;
+	color: #f5f5f5;
+	box-shadow: 0 10px 18px rgba(0,0,0,0.45), var(--console-inset);
+}
+
+@media (max-width: 600px) {
+	.app-console {
+		inset: auto 14px 14px auto;
+	}
+
+	.console-dialog {
+		width: min(96vw, 520px);
+	}
+
+	.console-log {
+		grid-template-columns: 78px 60px 1fr auto;
+		column-gap: 10px;
+	}
+}

@@ -1,29 +1,32 @@
 export class CameraManager {
+	private video: HTMLVideoElement;
+	private stream: MediaStream | null;
+	private currentDeviceId: string | null;
 
-	constructor(video) {
+	constructor(video: HTMLVideoElement) {
 		if (!video) {
 			throw new Error("CameraManager requires a video element");
 		}
 		
 		this.video = video;
 		this.stream = null;
-		this.deviceId = null;
+		this.currentDeviceId = null;
 	}
 
-	async getCameras() {
-    await navigator.mediaDevices.getUserMedia({ video: true });
+	async getCameras(): Promise<Array<{ deviceId: string; label: string }>> {
+		await navigator.mediaDevices.getUserMedia({ video: true });
 
-    const devices = await navigator.mediaDevices.enumerateDevices();
+		const devices = await navigator.mediaDevices.enumerateDevices();
 
-    return devices
-		.filter(device => device.kind === "videoinput")
-		.map(device => ({
-			deviceId: device.deviceId,
-			label: device.label || "Camera"
-    	}));
+		return devices
+			.filter(device => device.kind === "videoinput")
+			.map(device => ({
+				deviceId: device.deviceId,
+				label: device.label || "Camera"
+			}));
   	}
 
-	getResolution() {
+	getResolution(): { width: number; height: number } | null {
 		if (!this.video.videoWidth || !this.video.videoHeight) {
 			return null;
 		}
@@ -34,14 +37,14 @@ export class CameraManager {
 		};
 	}
 
-	isStreaming() {
+	isStreaming(): boolean {
 		return this.stream !== null && this.getResolution() !== null;
 	}
 
-	async start(deviceId = null) {
+	async start(deviceId: string | null = null) {
 		this.stop();
 
-		const constraints = {
+		const constraints: MediaStreamConstraints = {
 			video: deviceId ? {
 				deviceId: { exact: deviceId }
 			} : true,
@@ -65,21 +68,25 @@ export class CameraManager {
 		}
 	}
 
-	async switch(deviceId) {
+	async switch(deviceId: string) {
 		if (!deviceId || deviceId === this.currentDeviceId) return;
 		await this.start(deviceId);
   	}
 
-	async applyBestConstraints(videoTrack) {
+	private async applyBestConstraints(videoTrack: MediaStreamTrack) {
 		if (!videoTrack?.getCapabilities) return;
 
-		const caps = videoTrack.getCapabilities();
+		const caps = videoTrack.getCapabilities() as MediaTrackCapabilities & {
+			width?: { max?: number };
+			height?: { max?: number };
+			frameRate?: { max?: number };
+		};
 		const desiredFps = 30;
 		const minFps = 30;
 		const targetFps = caps.frameRate?.max ? Math.min(desiredFps, caps.frameRate.max) : desiredFps;
 
-		const attemptConstraints = async (width, height) => {
-			const constraint = {
+		const attemptConstraints = async (width: number, height: number) => {
+			const constraint: MediaTrackConstraints = {
 				width: { ideal: width, max: width },
 				height: { ideal: height, max: height },
 				frameRate: { ideal: targetFps, max: targetFps, min: minFps }
@@ -97,13 +104,11 @@ export class CameraManager {
 			return null;
 		};
 
-		// Try max capabilities first if available.
-		let applied = null;
+		let applied: MediaTrackSettings | null = null;
 		if (caps.width?.max && caps.height?.max) {
 			applied = await attemptConstraints(caps.width.max, caps.height.max);
 		}
 
-		// If fps is too low, fall back to lower resolutions while keeping fps target.
 		const fallbackResolutions = [
 			{ width: 1920, height: 1080 },
 			{ width: 1280, height: 720 }

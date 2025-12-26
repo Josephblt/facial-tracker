@@ -1,10 +1,17 @@
 import {
 	FaceLandmarker,
 	FilesetResolver,
-	DrawingUtils
+	DrawingUtils,
+	type NormalizedLandmark,
+	type FaceLandmarkerResult
 } from "@mediapipe/tasks-vision";
 
 export class FaceTracker {
+	private landmarker: FaceLandmarker | null;
+	private drawingUtils: DrawingUtils | null;
+	private context2D: CanvasRenderingContext2D | null;
+	private lastFace: NormalizedLandmark[] | null;
+	private selectedIndices: Set<number>;
 
 	constructor() {
 		this.landmarker = null;
@@ -30,15 +37,14 @@ export class FaceTracker {
 		});
 	}
 
-	detect(video) {
+	private detect(video: HTMLVideoElement): NormalizedLandmark[] | null {
 		if (!this.landmarker) return null;
-		const landmarks = this.landmarker.detectForVideo(video, performance.now());
+		const landmarks: FaceLandmarkerResult | undefined = this.landmarker.detectForVideo(video, performance.now());
 		const face_landmarks = landmarks?.faceLandmarks?.[0];
 		return face_landmarks ? face_landmarks : null;
 	}
 
-	sync_canvas_video(canvas, video) {
-		// canvas.width/height are already set in resizeCanvasDisplay; keep them in sync with displayed size.
+	private syncCanvasVideo(canvas: HTMLCanvasElement, video: HTMLVideoElement) {
 		const targetWidth = canvas.clientWidth;
 		const targetHeight = canvas.clientHeight;
 		if (targetWidth && targetHeight) {
@@ -47,19 +53,21 @@ export class FaceTracker {
 		}
 	}
 
-	draw(canvas, video) { 
+	draw(canvas: HTMLCanvasElement, video: HTMLVideoElement) { 
 		if (!canvas || !video) return;
 
 		const face = this.detect(video);
 		this.lastFace = face;
 		if (!face) return;
 
-		this.sync_canvas_video(canvas, video);
+		this.syncCanvasVideo(canvas, video);
 
 		if (!this.drawingUtils) {
 			this.context2D = canvas.getContext("2d");
-			this.drawingUtils = new DrawingUtils(this.context2D);
+			this.drawingUtils = this.context2D ? new DrawingUtils(this.context2D) : null;
 		}
+
+		if (!this.context2D || !this.drawingUtils) return;
 
 		const context2D = this.context2D;
 		context2D.clearRect(0, 0, canvas.width, canvas.height);
@@ -88,23 +96,13 @@ export class FaceTracker {
 			}
 			context2D.restore();
 		}
-
-		// ctx.save();
-		// ctx.fillStyle = "rgba(255,255,0,0.75)";
-		// ctx.font = "10px sans-serif";
-		// for (let i = 0; i < face.length; i += 1) {
-		// 	const p = face[i];
-		// 	const x = canvas.width - p.x * canvas.width;
-		// 	ctx.fillText(String(i), x, p.y * canvas.height);
-		// }
-		// ctx.restore();
 	}
 
-	toggleSelectionAt(canvas, x, y, maxDistance = 12) {
+	toggleSelectionAt(canvas: HTMLCanvasElement, x: number, y: number, maxDistance = 12) {
 		if (!this.lastFace || this.lastFace.length === 0) return null;
 
 		const unmirroredX = canvas.width - x;
-		let closestIndex = null;
+		let closestIndex: number | null = null;
 		let closestDistSq = maxDistance * maxDistance;
 
 		for (let i = 0; i < this.lastFace.length; i += 1) {
