@@ -23,34 +23,34 @@ export class ConsolePanel {
 		this.rows = new Map();
 
 		this.root = document.createElement("div");
-		this.root.className = "app-console";
+		this.root.className = "utility-dock";
 		this.root.innerHTML = `
-			<button class="console-launcher console-button" aria-label="Open console">
-				<div class="console-launcher__badges">
-					<span class="console-launcher__badge console-badge console-button console-launcher__badge--info"></span>
-					<span class="console-launcher__badge console-badge console-button console-launcher__badge--warn"></span>
-					<span class="console-launcher__badge console-badge console-button console-launcher__badge--error"></span>
+			<button class="utility-launcher ui-button" aria-label="Open console">
+				<div class="utility-launcher__badges">
+					<span class="utility-launcher__badge ui-button utility-launcher__badge--info"></span>
+					<span class="utility-launcher__badge ui-button utility-launcher__badge--warn"></span>
+					<span class="utility-launcher__badge ui-button utility-launcher__badge--error"></span>
 				</div>
-				<span class="console-launcher__icon" aria-hidden="true">${consoleIcon}</span>
+				<span class="utility-launcher__icon" aria-hidden="true">${consoleIcon}</span>
 			</button>
-			<div class="console-dialog console-dialog--hidden" role="dialog" aria-label="Console">
-				<div class="console-dialog__header">
-					<div class="console-dialog__title">Console</div>
-					<button class="console-dialog__close console-button" aria-label="Close console">×</button>
+			<div class="utility-dialog utility-dialog--hidden" role="dialog" aria-label="Console">
+				<div class="utility-dialog__header">
+					<div class="utility-dialog__title">Console</div>
+					<button class="utility-dialog__close ui-button" aria-label="Close console">×</button>
 				</div>
-				<div class="console-dialog__logs" role="log"></div>
+				<div class="utility-dialog__logs" role="log"></div>
 			</div>
 		`;
 		document.body.appendChild(this.root);
 
-		this.launcher = this.root.querySelector(".console-launcher") as HTMLButtonElement;
-		this.dialog = this.root.querySelector(".console-dialog") as HTMLDivElement;
-		this.logsContainer = this.root.querySelector(".console-dialog__logs") as HTMLDivElement;
-		this.closeBtn = this.root.querySelector(".console-dialog__close") as HTMLButtonElement;
+		this.launcher = this.root.querySelector(".utility-launcher") as HTMLButtonElement;
+		this.dialog = this.root.querySelector(".utility-dialog") as HTMLDivElement;
+		this.logsContainer = this.root.querySelector(".utility-dialog__logs") as HTMLDivElement;
+		this.closeBtn = this.root.querySelector(".utility-dialog__close") as HTMLButtonElement;
 		this.badges = {
-			info: this.root.querySelector(".console-launcher__badge--info"),
-			warn: this.root.querySelector(".console-launcher__badge--warn"),
-			error: this.root.querySelector(".console-launcher__badge--error")
+			info: this.root.querySelector(".utility-launcher__badge--info"),
+			warn: this.root.querySelector(".utility-launcher__badge--warn"),
+			error: this.root.querySelector(".utility-launcher__badge--error")
 		};
 		this.launcher.title = "Open console";
 
@@ -62,15 +62,15 @@ export class ConsolePanel {
 	private open() {
 		if (this.isOpen) return;
 		this.isOpen = true;
-		this.dialog.classList.remove("console-dialog--hidden");
-		this.launcher.classList.add("console-launcher--hidden");
+		this.dialog.classList.remove("utility-dialog--hidden");
+		this.launcher.classList.add("utility-launcher--hidden");
 	}
 
 	private close() {
 		if (!this.isOpen) return;
 		this.isOpen = false;
-		this.dialog.classList.add("console-dialog--hidden");
-		this.launcher.classList.remove("console-launcher--hidden");
+		this.dialog.classList.add("utility-dialog--hidden");
+		this.launcher.classList.remove("utility-launcher--hidden");
 	}
 
 	private addLog(log: LogEntry) {
@@ -95,22 +95,9 @@ export class ConsolePanel {
 		msgEl.className = "console-log__message";
 		msgEl.textContent = log.message;
 
-		const toggle = document.createElement("button");
-		toggle.type = "button";
-		toggle.className = "console-log__toggle console-button";
-		toggle.addEventListener("click", () => {
-			const isUnread = row.classList.contains("console-log--unread");
-			if (isUnread) {
-				this.service.markRead(log.id);
-			} else {
-				this.service.markUnread(log.id);
-			}
-		});
-
 		row.appendChild(timeEl);
 		row.appendChild(levelEl);
 		row.appendChild(msgEl);
-		row.appendChild(toggle);
 		this.logsContainer.appendChild(row);
 		this.rows.set(log.id, row);
 
@@ -121,20 +108,10 @@ export class ConsolePanel {
 		const row = this.rows.get(log.id);
 		if (!row) return;
 
-		const toggle = row.querySelector(".console-log__toggle") as HTMLButtonElement | null;
-		
 		if (log.read) {
 			row.classList.remove("console-log--unread");
-			if (toggle) {
-				toggle.textContent = "●";
-				toggle.setAttribute("aria-label", "Mark unread");
-			}
 		} else {
 			row.classList.add("console-log--unread");
-			if (toggle) {
-				toggle.textContent = "○";
-				toggle.setAttribute("aria-label", "Mark read");
-			}
 		}
 	}
 
