@@ -1,0 +1,38 @@
+:root {
+	--ui-button-size-lg: 32px;
+	--ui-button-icon-size-lg: 14px;
+	--ui-button-size-sm: 32px;
+	--ui-button-icon-size-sm: 14px;
+}
+
+.ui-button {
+	--ui-button-size: 64px;
+	--ui-button-bg: var(--dark-2);
+	--ui-button-fg: var(--light-4);
+	--ui-button-shadow: 0 0 6px 3px var(--shadow-color);
+	--ui-button-highlight: var(--dark-4);
+
+	width: var(--ui-button-size);
+	height: var(--ui-button-size);
+	border-radius: 50%;
+	background: var(--ui-button-bg);
+	color: var(--ui-button-fg);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--dark-4);
+	padding: 0;
+	cursor: pointer;
+	box-shadow: var(--ui-button-shadow);
+	transition: background 250ms ease, box-shadow 250ms ease, transform 500ms ease,
+		opacity 500ms ease;
+}
+
+.ui-button:hover {
+	background: linear-gradient(var(--ui-button-highlight), var(--ui-button-highlight)), var(--ui-button-bg);
+	box-shadow: 0 0 8px 4px var(--shadow-color);
+}
+
+.ui-button:active {
+	transform: translateY(1px);
+}

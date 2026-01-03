@@ -1,0 +1,108 @@
+.dialog {
+	--dialog-inset: 18px;
+	--dialog-bg: var(--dark-2);
+	--dialog-header-bg: var(--dark-3);
+	--dialog-content-bg: var(--dark-2);
+	--dialog-border: var(--dark-4);
+	--dialog-shadow: 0 0 12px 4px var(--shadow-color);
+	--dialog-radius: 14px;
+	--dialog-header-padding-top: 8px;
+	--dialog-header-padding-right: 8px;
+	--dialog-header-padding-bottom: 8px;
+	--dialog-header-padding-left: 18px;
+	--dialog-content-padding: 16px;
+	--dialog-content-inset: 12px;
+	--dialog-content-surface: var(--dark-1);
+	--dialog-content-radius: 10px;
+	--dialog-content-border: 1px solid var(--dark-3);
+	--dialog-close-size: var(--ui-button-size-lg);
+	--dialog-close-icon-size: var(--ui-button-icon-size-lg);
+	--dialog-close-bg: var(--dark-2);
+	--dialog-close-fg: var(--light-4);
+	--dialog-close-highlight: var(--dark-4);
+	--dialog-header-gap: 8px;
+	--dialog-gap: 0;
+	--dialog-title-size: var(--font-size-title);
+	--dialog-slide-offset: 100%;
+
+	position: fixed;
+	left: var(--dialog-inset);
+	right: var(--dialog-inset);
+	bottom: var(--dialog-inset);
+	height: 50vh;
+	background: var(--dialog-bg);
+	color: var(--light-4);
+	border: 1px solid var(--dialog-border);
+	border-radius: var(--dialog-radius);
+	box-shadow: var(--dialog-shadow);
+	box-sizing: border-box;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--dialog-gap);
+	overflow: hidden;
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.dialog--hidden {
+	opacity: 0;
+	transform: translateY(var(--dialog-slide-offset));
+	pointer-events: none;
+}
+
+.dialog__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--dialog-header-gap);
+	padding: var(--dialog-header-padding-top) var(--dialog-header-padding-right)
+		var(--dialog-header-padding-bottom) var(--dialog-header-padding-left);
+	background: var(--dialog-header-bg);
+}
+
+.dialog__title {
+	margin: 0;
+	font-size: var(--dialog-title-size);
+	font-weight: bold;
+}
+
+.dialog__close {
+	--ui-button-size: var(--dialog-close-size);
+	--ui-button-bg: var(--dialog-close-bg);
+	--ui-button-fg: var(--dialog-close-fg);
+	--ui-button-highlight: var(--dialog-close-highlight);
+
+	flex: 0 0 auto;
+}
+
+.dialog__close-icon {
+	width: var(--dialog-close-icon-size);
+	height: var(--dialog-close-icon-size);
+	display: inline-block;
+}
+
+.dialog__close-icon svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.dialog__content {
+	flex: 1 1 auto;
+	padding: var(--dialog-content-padding);
+	background: var(--dialog-content-bg);
+	overflow: auto;
+}
+
+.dialog__content-inner {
+	width: 100%;
+	height: 100%;
+	padding: var(--dialog-content-inset);
+	background: var(--dialog-content-surface);
+	border-radius: var(--dialog-content-radius);
+	border: var(--dialog-content-border);
+	box-sizing: border-box;
+	overflow: auto;
+}

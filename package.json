@@ -17,6 +17,6 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "@mediapipe/tasks-vision": "^0.10"
+    "lucide-static": "^0.562.0"
   }
 }

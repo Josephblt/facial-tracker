@@ -11,6 +11,10 @@ export class ConsoleService {
 		this.listeners = new Set();
 	}
 
+	getLogs(): LogEntry[] {
+		return [...this.logs];
+	}
+
 	onLogChanged(listener: Listener) {
 		this.listeners.add(listener);
 		return () => this.listeners.delete(listener);
