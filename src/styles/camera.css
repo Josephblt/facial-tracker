@@ -6,6 +6,7 @@
 	--camera-radius: 14px;
 	--camera-controls-inset: 12px;
 	--camera-controls-gap: 8px;
+	--camera-status-padding: 12px;
 
 	position: fixed;
 	inset: var(--camera-inset);
@@ -20,8 +21,6 @@
 	max-width: 100%;
 	max-height: 100%;
 	aspect-ratio: var(--camera-aspect-ratio);
-	width: 100%;
-	height: auto;
 	border: var(--camera-border);
 	box-shadow: var(--camera-shadow);
 	border-radius: var(--camera-radius);
@@ -64,7 +63,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 12px;
+	padding: var(--camera-status-padding);
 	box-sizing: border-box;
 	text-align: center;
 	font-size: var(--font-size-text);

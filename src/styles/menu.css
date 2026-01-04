@@ -1,11 +1,9 @@
 .menu {
-	--menu-inset: 0;
 	--menu-width: 20vw;
 	--menu-bg: var(--dark-2);
 	--menu-header-bg: var(--menu-bg);
 	--menu-divider: 1px solid var(--dark-4);
 	--menu-shadow: 0 0 12px 4px var(--shadow-color);
-	--menu-radius: 0;
 	--menu-header-padding: 12px;
 	--menu-content-padding: 16px;
 	--menu-close-size: var(--ui-button-size-lg);
@@ -16,22 +14,19 @@
 	--menu-slide-offset: 100%;
 
 	position: fixed;
-	top: var(--menu-inset);
-	bottom: var(--menu-inset);
-	left: var(--menu-inset);
+	top: 0;
+	bottom: 0;
+	left: 0;
 	width: var(--menu-width);
 	background: var(--menu-bg);
 	color: var(--light-4);
 	border-right: var(--menu-divider);
-	border-radius: var(--menu-radius);
 	box-shadow: var(--menu-shadow);
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	opacity: 1;
-	transform: translateX(0);
-	transition: opacity 500ms ease, transform 500ms ease;
+	transition: opacity 150ms ease, transform 250ms ease;
 }
 
 .menu--hidden {

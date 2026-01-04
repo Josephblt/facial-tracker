@@ -8,6 +8,7 @@
 	--console-item-radius: 10px;
 	--console-item-grid-gap: 10px;
 	--console-item-accent: var(--info-color);
+	--console-level-letter-spacing: 0.08em;
 
 	height: 100%;
 	display: flex;
@@ -65,7 +66,7 @@
 
 .console__level {
 	text-transform: uppercase;
-	letter-spacing: 0.08em;
+	letter-spacing: var(--console-level-letter-spacing);
 	font-size: var(--font-size-text);
 }
 

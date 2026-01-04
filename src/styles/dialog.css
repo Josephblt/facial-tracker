@@ -21,7 +21,6 @@
 	--dialog-close-fg: var(--light-4);
 	--dialog-close-highlight: var(--dark-4);
 	--dialog-header-gap: 8px;
-	--dialog-gap: 0;
 	--dialog-title-size: var(--font-size-title);
 	--dialog-slide-offset: 100%;
 
@@ -36,14 +35,12 @@
 	border-radius: var(--dialog-radius);
 	box-shadow: var(--dialog-shadow);
 	box-sizing: border-box;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
-	gap: var(--dialog-gap);
 	overflow: hidden;
 	opacity: 1;
 	transform: translateY(0);
-	transition: opacity 500ms ease, transform 500ms ease;
+	transition: opacity 150ms ease, transform 250ms ease;
 }
 
 .dialog--hidden {

@@ -24,8 +24,8 @@
 	padding: 0;
 	cursor: pointer;
 	box-shadow: var(--ui-button-shadow);
-	transition: background 250ms ease, box-shadow 250ms ease, transform 500ms ease,
-		opacity 500ms ease;
+	transition: background 250ms ease, box-shadow 250ms ease, transform 250ms ease,
+		opacity 250ms ease;
 }
 
 .ui-button:hover {
