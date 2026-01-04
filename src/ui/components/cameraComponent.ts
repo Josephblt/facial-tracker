@@ -18,6 +18,8 @@ export type CameraBinding = {
 	video: HTMLVideoElement;
 };
 
+export type CameraController = CameraComponent & CameraBinding;
+
 type CameraElements = {
 	root: HTMLElement;
 	stageEl: HTMLElement;
@@ -61,6 +63,8 @@ type CameraBindingOptions = {
 	formatError?: (error: unknown) => string;
 };
 
+type CameraComponentOptions = CameraOptions & CameraBindingOptions;
+
 const setContent = (element: HTMLElement, content: string | Node) => {
 	if (typeof content === "string") {
 		element.textContent = content;
@@ -88,7 +92,17 @@ const parseAspectRatio = (ratio: string): number | null => {
 	return null;
 };
 
-export function createCameraComponent(options: CameraOptions = {}): CameraComponent {
+const formatCameraError = (error: unknown) => {
+	if (error instanceof Error) {
+		return error.message;
+	}
+	return String(error);
+};
+
+export function createCameraComponent(
+	service: CameraService,
+	options: CameraComponentOptions = {}
+): CameraController {
 	const { root, feedEl, overlayEl, controlsEl } = parseCameraTemplate(template);
 	let aspectRatioValue = 16 / 9;
 
@@ -155,37 +169,15 @@ export function createCameraComponent(options: CameraOptions = {}): CameraCompon
 		window.addEventListener("resize", updateFit);
 	}
 
-	return {
-		element: root,
-		setFeed,
-		setOverlay,
-		setControls,
-		setAspectRatio,
-		setAriaLabel
-	};
-}
-
-const formatCameraError = (error: unknown) => {
-	if (error instanceof Error) {
-		return error.message;
-	}
-	return String(error);
-};
-
-export function bindCameraService(
-	component: CameraComponent,
-	service: CameraService,
-	options: CameraBindingOptions = {}
-): CameraBinding {
 	const status = document.createElement("div");
 	status.className = "camera__status";
-	component.setOverlay(status);
+	setOverlay(status);
 
 	const video = document.createElement("video");
 	video.autoplay = true;
 	video.muted = true;
 	video.playsInline = true;
-	component.setFeed(video);
+	setFeed(video);
 
 	const showStatus = (message: string | null) => {
 		status.textContent = message ?? "";
@@ -194,7 +186,7 @@ export function bindCameraService(
 
 	const updateAspect = () => {
 		if (video.videoWidth && video.videoHeight) {
-			component.setAspectRatio(`${video.videoWidth} / ${video.videoHeight}`);
+			setAspectRatio(`${video.videoWidth} / ${video.videoHeight}`);
 		}
 	};
 
@@ -225,5 +217,15 @@ export function bindCameraService(
 
 	showStatus(null);
 
-	return { start, stop, video };
+	return {
+		element: root,
+		setFeed,
+		setOverlay,
+		setControls,
+		setAspectRatio,
+		setAriaLabel,
+		start,
+		stop,
+		video
+	};
 }
