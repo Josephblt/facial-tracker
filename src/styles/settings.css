@@ -1,12 +1,13 @@
 .settings {
-	--settings-gap: 12px;
-	--settings-group-gap: 6px;
+	--settings-gap: 16px;
+	--settings-section-gap: 12px;
 	--settings-label-color: var(--light-2);
 	--settings-input-bg: var(--dark-3);
 	--settings-input-border: 1px solid var(--dark-4);
 	--settings-input-radius: 8px;
 	--settings-input-padding-y: 6px;
 	--settings-input-padding-x: 10px;
+	--settings-muted-color: var(--light-1);
 
 	display: flex;
 	flex-direction: column;
@@ -15,30 +16,8 @@
 	font-size: var(--font-size-text);
 }
 
-.settings__group {
+.settings__content {
 	display: flex;
 	flex-direction: column;
-	gap: var(--settings-group-gap);
-}
-
-.settings__label {
-	color: var(--settings-label-color);
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	font-size: var(--font-size-text);
-}
-
-.settings__select {
-	background: var(--settings-input-bg);
-	border: var(--settings-input-border);
-	border-radius: var(--settings-input-radius);
-	color: var(--light-4);
-	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
-	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
-}
-
-.settings__select:disabled {
-	opacity: 0.6;
-	cursor: not-allowed;
+	gap: var(--settings-section-gap);
 }

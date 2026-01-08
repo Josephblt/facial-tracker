@@ -1,0 +1,37 @@
+.settings-group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.settings-group__header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	align-items: center;
+	text-align: center;
+}
+
+.settings-group__title {
+	margin: 0;
+	color: var(--settings-label-color);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: var(--font-size-title);
+	cursor: default;
+}
+
+.settings-group__description {
+	margin: 0;
+	color: var(--settings-muted-color);
+	font-size: var(--font-size-menu);
+	cursor: default;
+}
+
+.settings-group__body {
+	display: grid;
+	grid-template-columns: var(--settings-label-width, max-content) minmax(0, 1fr);
+	column-gap: 12px;
+	row-gap: 10px;
+	align-items: center;
+}

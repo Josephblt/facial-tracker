@@ -1,0 +1,95 @@
+.settings-control {
+	display: contents;
+}
+
+.settings-control__label {
+	color: var(--settings-label-color);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: var(--font-size-text);
+	cursor: default;
+	text-align: right;
+	justify-self: end;
+	grid-column: 1;
+}
+
+.settings-control__field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	grid-column: 2;
+}
+
+.settings-control__input,
+.settings-control__select {
+	background: var(--settings-input-bg);
+	border: var(--settings-input-border);
+	border-radius: var(--settings-input-radius);
+	color: var(--light-4);
+	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	box-sizing: border-box;
+}
+
+.settings-control__input[type="range"] {
+	padding: 0;
+	height: 20px;
+	accent-color: var(--info-color);
+	flex: 1;
+	min-width: 0;
+}
+
+.settings-control__select {
+	width: 100%;
+	grid-column: 2;
+}
+
+.settings-control__meta {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	width: var(--settings-meta-width, auto);
+	justify-content: flex-start;
+}
+
+.settings-control__button {
+	background: var(--settings-input-bg);
+	border: var(--settings-input-border);
+	border-radius: var(--settings-input-radius);
+	color: var(--light-4);
+	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	cursor: pointer;
+}
+
+.settings-control__toggle {
+	width: 16px;
+	height: 16px;
+	accent-color: var(--info-color);
+}
+
+.settings-control__value {
+	text-align: left;
+	font-family: var(--font-family-mono);
+	font-size: 10px;
+	color: var(--light-3);
+	cursor: default;
+}
+
+.settings-control__unit {
+	text-align: left;
+	font-size: 10px;
+	color: var(--settings-muted-color);
+	cursor: default;
+}
+
+.settings-control__input:disabled,
+.settings-control__select:disabled,
+.settings-control__toggle:disabled,
+.settings-control__button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
