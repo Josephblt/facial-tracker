@@ -15,6 +15,7 @@ export type CameraComponent = {
 export type CameraBinding = {
 	start(): Promise<void>;
 	stop(): void;
+	setConstraints(constraints?: MediaStreamConstraints): void;
 	video: HTMLVideoElement;
 };
 
@@ -105,6 +106,7 @@ export function createCameraComponent(
 ): CameraController {
 	const { root, feedEl, overlayEl, controlsEl } = parseCameraTemplate(template);
 	let aspectRatioValue = 16 / 9;
+	let currentConstraints = options.constraints;
 
 	const updateFit = () => {
 		const rect = root.getBoundingClientRect();
@@ -138,6 +140,10 @@ export function createCameraComponent(
 
 	const setAriaLabel = (label: string) => {
 		root.setAttribute("aria-label", label);
+	};
+
+	const setConstraints = (constraints?: MediaStreamConstraints) => {
+		currentConstraints = constraints;
 	};
 
 	if (options.ariaLabel) {
@@ -193,7 +199,7 @@ export function createCameraComponent(
 	const start = async () => {
 		showStatus(options.loadingText ?? "Loading camera...");
 		try {
-			const stream = await service.start(options.constraints);
+			const stream = await service.start(currentConstraints);
 			video.srcObject = stream;
 			video.removeEventListener("loadedmetadata", updateAspect);
 			video.removeEventListener("resize", updateAspect);
@@ -224,6 +230,7 @@ export function createCameraComponent(
 		setControls,
 		setAspectRatio,
 		setAriaLabel,
+		setConstraints,
 		start,
 		stop,
 		video

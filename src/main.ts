@@ -6,6 +6,7 @@ import { createDialog } from "./ui/components/dialogComponent";
 import { createConsoleComponent } from "./ui/components/consoleComponent";
 import { createMenuComponent } from "./ui/components/menuComponent";
 import { createCameraComponent } from "./ui/components/cameraComponent";
+import { createSettingsComponent } from "./ui/components/settingsComponent";
 import { ConsoleService } from "./services/consoleService";
 import { CameraService } from "./services/cameraService";
 import { menuIcon, consoleIcon, settingsIcon } from "./ui/icons";
@@ -54,4 +55,10 @@ const cameraComponent = createCameraComponent(cameraService, {
 	ariaLabel: "Camera feed"
 });
 appRoot.appendChild(cameraComponent.element);
-void cameraComponent.start();
+
+const settingsComponent = createSettingsComponent(cameraComponent, cameraService);
+settingsDialog.setContent(settingsComponent.element);
+
+void cameraComponent.start().finally(() => {
+	void settingsComponent.refreshCameras();
+});
