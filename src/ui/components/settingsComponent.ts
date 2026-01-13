@@ -104,13 +104,6 @@ const getRangeStep = (range: RangeCapability): number => {
 	return 1;
 };
 
-const getSupportedConstraints = (): Record<string, boolean> | null => {
-	if (!navigator.mediaDevices?.getSupportedConstraints) {
-		return null;
-	}
-	return navigator.mediaDevices.getSupportedConstraints() as Record<string, boolean>;
-};
-
 const sortCapabilityKeys = ([keyA]: [string, unknown], [keyB]: [string, unknown]) => {
 	const priorityA = PRIORITY_KEYS.indexOf(keyA);
 	const priorityB = PRIORITY_KEYS.indexOf(keyB);
@@ -165,7 +158,6 @@ export function createSettingsComponent(
 	let controlBindings: ControlBinding[] = [];
 	const applyTimers = new Map<string, number>();
 
-	const getVideoTrack = () => cameraService.getStream()?.getVideoTracks()[0] ?? null;
 	const getSelectedDeviceId = () => deviceControl.getValue().trim();
 
 	const updateControlWidths = () => {
@@ -204,22 +196,20 @@ export function createSettingsComponent(
 	};
 
 	const syncSelectionWithStream = () => {
-		const track = getVideoTrack();
-		const deviceId = track?.getSettings().deviceId;
+		const deviceId = cameraService.getActiveDeviceId();
 		if (!deviceId) return;
 		deviceControl.setValue(deviceId);
 	};
 
 	const updateResetState = () => {
 		const deviceId = getSelectedDeviceId();
-		const track = getVideoTrack();
-		resetButton.disabled = !deviceId || !track;
+		const settings = cameraService.getSettings();
+		resetButton.disabled = !deviceId || !settings;
 	};
 
 	const syncControlValues = () => {
-		const track = getVideoTrack();
-		if (!track) return;
-		const settings = track.getSettings() as Record<string, unknown>;
+		const settings = cameraService.getSettings() as Record<string, unknown> | null;
+		if (!settings) return;
 		for (const control of controlBindings) {
 			if (settings[control.key] !== undefined) {
 				control.setValue(settings[control.key]);
@@ -229,10 +219,8 @@ export function createSettingsComponent(
 	};
 
 	const applyConstraint = async (key: string, value: number | string | boolean) => {
-		const track = getVideoTrack();
-		if (!track || typeof track.applyConstraints !== "function") return;
 		try {
-			await track.applyConstraints({ [key]: value });
+			await cameraService.applyConstraint(key, value);
 		} catch {
 			// Ignore failed constraints and resync to actual settings.
 		}
@@ -252,21 +240,20 @@ export function createSettingsComponent(
 	};
 
 	const buildControls = () => {
-		const track = getVideoTrack();
 		clearApplyTimers();
 		controlBindings = [];
 		controlsGroup.body.replaceChildren();
 
-		if (!track || typeof track.getCapabilities !== "function") {
+		const capabilities = cameraService.getCapabilities();
+		if (!capabilities) {
 			controlsGroup.element.hidden = true;
 			updateResetState();
 			scheduleControlWidthUpdate();
 			return;
 		}
 
-		const capabilities = track.getCapabilities();
-		const supportedConstraints = getSupportedConstraints();
-		const canApply = typeof track.applyConstraints === "function";
+		const supportedConstraints = cameraService.getSupportedConstraints();
+		const canApply = cameraService.canApplyConstraints();
 		const entries = Object.entries(capabilities)
 			.filter(([key, value]) => {
 				if (HIDDEN_KEYS.has(key)) return false;
@@ -371,16 +358,15 @@ export function createSettingsComponent(
 	};
 
 	const refreshCameras = async () => {
-		if (!navigator.mediaDevices?.enumerateDevices) {
-			deviceControl.setOptions([{ label: "Camera selection unavailable", value: "" }]);
-			deviceControl.setDisabled(true);
-			buildControls();
-			return;
-		}
-
 		const preferredId = deviceControl.getValue();
 		try {
-			const devices = await navigator.mediaDevices.enumerateDevices();
+			const devices = await cameraService.listCameras();
+			if (!devices) {
+				deviceControl.setOptions([{ label: "Camera selection unavailable", value: "" }]);
+				deviceControl.setDisabled(true);
+				buildControls();
+				return;
+			}
 			const cameras = devices.filter(device => device.kind === "videoinput");
 
 			if (!cameras.length) {
@@ -413,22 +399,20 @@ export function createSettingsComponent(
 
 	deviceControl.onChange((deviceId) => {
 		if (!deviceId) return;
-		camera.setConstraints({ video: { deviceId: { exact: deviceId } }, audio: false });
+		cameraService.setConstraints({ video: { deviceId: { exact: deviceId } }, audio: false });
 		void camera.start().finally(buildControls);
 	});
 
 	resetButton.addEventListener("click", () => {
 		const deviceId = getSelectedDeviceId();
 		if (!deviceId) return;
-		camera.setConstraints({ video: { deviceId: { exact: deviceId } }, audio: false });
+		cameraService.setConstraints({ video: { deviceId: { exact: deviceId } }, audio: false });
 		void camera.start().finally(buildControls);
 	});
 
-	if (navigator.mediaDevices?.addEventListener) {
-		navigator.mediaDevices.addEventListener("devicechange", () => {
-			void refreshCameras();
-		});
-	}
+	cameraService.onDeviceChange(() => {
+		void refreshCameras();
+	});
 
 	root.addEventListener("input", () => {
 		scheduleControlWidthUpdate();

@@ -29,6 +29,22 @@ type CameraElements = {
 	controlsEl: HTMLElement;
 };
 
+type CameraOptions = {
+	ariaLabel?: string;
+	aspectRatio?: string;
+	feed?: string | Node;
+	overlay?: string | Node;
+	controls?: string | Node;
+};
+
+type CameraBindingOptions = {
+	constraints?: MediaStreamConstraints;
+	loadingText?: string;
+	formatError?: (error: unknown) => string;
+};
+
+type CameraComponentOptions = CameraOptions & CameraBindingOptions;
+
 const parseCameraTemplate = (templateHtml: string): CameraElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
@@ -49,22 +65,6 @@ const parseCameraTemplate = (templateHtml: string): CameraElements => {
 
 	return { root, stageEl, feedEl, overlayEl, controlsEl };
 };
-
-type CameraOptions = {
-	ariaLabel?: string;
-	aspectRatio?: string;
-	feed?: string | Node;
-	overlay?: string | Node;
-	controls?: string | Node;
-};
-
-type CameraBindingOptions = {
-	constraints?: MediaStreamConstraints;
-	loadingText?: string;
-	formatError?: (error: unknown) => string;
-};
-
-type CameraComponentOptions = CameraOptions & CameraBindingOptions;
 
 const setContent = (element: HTMLElement, content: string | Node) => {
 	if (typeof content === "string") {
@@ -106,7 +106,9 @@ export function createCameraComponent(
 ): CameraController {
 	const { root, feedEl, overlayEl, controlsEl } = parseCameraTemplate(template);
 	let aspectRatioValue = 16 / 9;
-	let currentConstraints = options.constraints;
+	if (options.constraints) {
+		service.setConstraints(options.constraints);
+	}
 
 	const updateFit = () => {
 		const rect = root.getBoundingClientRect();
@@ -143,7 +145,7 @@ export function createCameraComponent(
 	};
 
 	const setConstraints = (constraints?: MediaStreamConstraints) => {
-		currentConstraints = constraints;
+		service.setConstraints(constraints);
 	};
 
 	if (options.ariaLabel) {
@@ -199,7 +201,7 @@ export function createCameraComponent(
 	const start = async () => {
 		showStatus(options.loadingText ?? "Loading camera...");
 		try {
-			const stream = await service.start(currentConstraints);
+			const stream = await service.start();
 			video.srcObject = stream;
 			video.removeEventListener("loadedmetadata", updateAspect);
 			video.removeEventListener("resize", updateAspect);
