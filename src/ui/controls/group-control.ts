@@ -24,9 +24,9 @@ const parseGroupTemplate = (templateHtml: string): SettingsGroupElements => {
 		throw new Error("Group template is missing a root element");
 	}
 
-	const titleEl = root.querySelector(".settings-group__title") as HTMLElement | null;
-	const descriptionEl = root.querySelector(".settings-group__description") as HTMLParagraphElement | null;
-	const bodyEl = root.querySelector(".settings-group__body") as HTMLElement | null;
+	const titleEl = root.querySelector(".group__title") as HTMLElement | null;
+	const descriptionEl = root.querySelector(".group__description") as HTMLParagraphElement | null;
+	const bodyEl = root.querySelector(".group__body") as HTMLElement | null;
 
 	if (!titleEl || !descriptionEl || !bodyEl) {
 		throw new Error("Group template is missing required sections");
@@ -62,3 +62,4 @@ export function createSettingsGroup(options: {
 		setDescription
 	};
 }
+
