@@ -6,8 +6,8 @@
 	--menu-shadow: 0 0 12px 4px var(--shadow-color);
 	--menu-header-padding: 12px;
 	--menu-content-padding: 16px;
-	--menu-close-size: var(--ui-button-size-lg);
-	--menu-close-icon-size: var(--ui-button-icon-size-lg);
+	--menu-close-size: var(--button-size-lg);
+	--menu-close-icon-size: var(--button-icon-size-lg);
 	--menu-close-bg: var(--dark-2);
 	--menu-close-fg: var(--light-4);
 	--menu-close-highlight: var(--dark-4);
@@ -44,10 +44,10 @@
 }
 
 .menu__close {
-	--ui-button-size: var(--menu-close-size);
-	--ui-button-bg: var(--menu-close-bg);
-	--ui-button-fg: var(--menu-close-fg);
-	--ui-button-highlight: var(--menu-close-highlight);
+	--button-size: var(--menu-close-size);
+	--button-bg: var(--menu-close-bg);
+	--button-fg: var(--menu-close-fg);
+	--button-highlight: var(--menu-close-highlight);
 
 	flex: 0 0 auto;
 }
@@ -69,3 +69,4 @@
 	padding: var(--menu-content-padding);
 	overflow: auto;
 }
+

@@ -15,8 +15,8 @@
 	--dialog-content-surface: var(--dark-1);
 	--dialog-content-radius: 10px;
 	--dialog-content-border: 1px solid var(--dark-3);
-	--dialog-close-size: var(--ui-button-size-lg);
-	--dialog-close-icon-size: var(--ui-button-icon-size-lg);
+	--dialog-close-size: var(--button-size-lg);
+	--dialog-close-icon-size: var(--button-icon-size-lg);
 	--dialog-close-bg: var(--dark-2);
 	--dialog-close-fg: var(--light-4);
 	--dialog-close-highlight: var(--dark-4);
@@ -66,10 +66,10 @@
 }
 
 .dialog__close {
-	--ui-button-size: var(--dialog-close-size);
-	--ui-button-bg: var(--dialog-close-bg);
-	--ui-button-fg: var(--dialog-close-fg);
-	--ui-button-highlight: var(--dialog-close-highlight);
+	--button-size: var(--dialog-close-size);
+	--button-bg: var(--dialog-close-bg);
+	--button-fg: var(--dialog-close-fg);
+	--button-highlight: var(--dialog-close-highlight);
 
 	flex: 0 0 auto;
 }
@@ -103,3 +103,4 @@
 	box-sizing: border-box;
 	overflow: auto;
 }
+

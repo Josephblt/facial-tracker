@@ -1,38 +1,41 @@
 :root {
-	--ui-button-size-lg: 32px;
-	--ui-button-icon-size-lg: 14px;
-	--ui-button-size-sm: 32px;
-	--ui-button-icon-size-sm: 14px;
+	--button-size-lg: 32px;
+	--button-icon-size-lg: 14px;
+	--button-size-sm: 32px;
+	--button-icon-size-sm: 14px;
 }
 
-.ui-button {
-	--ui-button-size: 64px;
-	--ui-button-bg: var(--dark-2);
-	--ui-button-fg: var(--light-4);
-	--ui-button-shadow: 0 0 6px 3px var(--shadow-color);
-	--ui-button-highlight: var(--dark-4);
+.button {
+	--button-size: 64px;
+	--button-bg: var(--dark-2);
+	--button-fg: var(--light-4);
+	--button-shadow: 0 0 6px 3px var(--shadow-color);
+	--button-shadow-hover: 0 0 8px 4px var(--shadow-color);
+	--button-border: 1px solid var(--dark-4);
+	--button-highlight: var(--dark-4);
 
-	width: var(--ui-button-size);
-	height: var(--ui-button-size);
+	width: var(--button-size);
+	height: var(--button-size);
 	border-radius: 50%;
-	background: var(--ui-button-bg);
-	color: var(--ui-button-fg);
+	background: var(--button-bg);
+	color: var(--button-fg);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid var(--dark-4);
+	border: var(--button-border);
 	padding: 0;
 	cursor: pointer;
-	box-shadow: var(--ui-button-shadow);
+	box-shadow: var(--button-shadow);
 	transition: background 250ms ease, box-shadow 250ms ease, transform 250ms ease,
 		opacity 250ms ease;
 }
 
-.ui-button:hover {
-	background: linear-gradient(var(--ui-button-highlight), var(--ui-button-highlight)), var(--ui-button-bg);
-	box-shadow: 0 0 8px 4px var(--shadow-color);
+.button:hover {
+	background: linear-gradient(var(--button-highlight), var(--button-highlight)), var(--button-bg);
+	box-shadow: var(--button-shadow-hover);
 }
 
-.ui-button:active {
+.button:active {
 	transform: translateY(1px);
 }
+
