@@ -51,6 +51,7 @@
 	height: 100%;
 	display: block;
 	object-fit: contain;
+	transform: scaleX(-1);
 }
 
 .camera__overlay {
