@@ -26,7 +26,7 @@
 	background: var(--settings-input-bg);
 	border: var(--settings-input-border);
 	border-radius: var(--settings-input-radius);
-	color: var(--light-4);
+	color: var(--light-color-4);
 	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
 	font-family: var(--font-family-ui);
 	font-size: var(--font-size-text);
@@ -58,7 +58,7 @@
 	background: var(--settings-input-bg);
 	border: var(--settings-input-border);
 	border-radius: var(--settings-input-radius);
-	color: var(--light-4);
+	color: var(--light-color-4);
 	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
 	font-family: var(--font-family-ui);
 	font-size: var(--font-size-text);
@@ -75,7 +75,7 @@
 	text-align: left;
 	font-family: var(--font-family-mono);
 	font-size: 10px;
-	color: var(--light-3);
+	color: var(--light-color-3);
 	cursor: default;
 }
 

@@ -1,7 +1,7 @@
 .camera {
 	--camera-inset: 36px;
 	--camera-aspect-ratio: 16 / 9;
-	--camera-border: 1px solid var(--dark-4);
+	--camera-border: 1px solid var(--dark-color-4);
 	--camera-shadow: 0 0 12px 4px var(--shadow-color);
 	--camera-radius: 14px;
 	--camera-controls-inset: 12px;
@@ -68,7 +68,7 @@
 	box-sizing: border-box;
 	text-align: center;
 	font-size: var(--font-size-text);
-	color: var(--light-4);
+	color: var(--light-color-4);
 }
 
 .camera__controls {

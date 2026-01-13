@@ -20,8 +20,8 @@
 .dock-button {
 	z-index: 1300;
 	--button-size: var(--dock-button-size);
-	--button-bg: var(--dark-2);
-	--button-fg: var(--light-4);
+	--button-bg: var(--dark-color-2);
+	--button-fg: var(--light-color-4);
 	--button-shadow: 0 0 7px 3px var(--shadow-color);
 }
 

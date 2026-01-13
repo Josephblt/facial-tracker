@@ -3,15 +3,15 @@
 	--warn-color: rgba(242, 201, 76, 1);
 	--error-color: rgba(255, 107, 107, 1);
 	
-	--dark-1: rgba(11, 12, 15, 1);
-	--dark-2: rgba(20, 22, 26, 1);
-	--dark-3: rgba(30, 33, 38, 1);
-	--dark-4: rgba(41, 45, 51, 1);
+	--dark-color-1: rgba(11, 12, 15, 1);
+	--dark-color-2: rgba(20, 22, 26, 1);
+	--dark-color-3: rgba(30, 33, 38, 1);
+	--dark-color-4: rgba(41, 45, 51, 1);
 	
-	--light-1: rgba(138, 145, 154, 1);
-	--light-2: rgba(177, 182, 190, 1);
-	--light-3: rgba(214, 217, 223, 1);
-	--light-4: rgba(242, 243, 245, 1);
+	--light-color-1: rgba(138, 145, 154, 1);
+	--light-color-2: rgba(177, 182, 190, 1);
+	--light-color-3: rgba(214, 217, 223, 1);
+	--light-color-4: rgba(242, 243, 245, 1);
 
 	--shadow-color: rgba(255, 255, 255, 0.1);
 
@@ -24,10 +24,8 @@
 }
 
 body {
-	margin: 0;
-	min-height: 100vh;
-	background: var(--dark-1);
-	color: var(--light-4);
+	background: var(--dark-color-1);
+	color: var(--light-color-4);
 	font-family: var(--font-family-ui);
 	-webkit-font-smoothing: antialiased;
 }

@@ -7,12 +7,12 @@
 
 .button {
 	--button-size: 64px;
-	--button-bg: var(--dark-2);
-	--button-fg: var(--light-4);
+	--button-bg: var(--dark-color-2);
+	--button-fg: var(--light-color-4);
 	--button-shadow: 0 0 6px 3px var(--shadow-color);
 	--button-shadow-hover: 0 0 8px 4px var(--shadow-color);
-	--button-border: 1px solid var(--dark-4);
-	--button-highlight: var(--dark-4);
+	--button-border: 1px solid var(--dark-color-4);
+	--button-highlight: var(--dark-color-4);
 
 	width: var(--button-size);
 	height: var(--button-size);

@@ -3,8 +3,8 @@
 	--console-item-gap: 8px;
 	--console-item-padding-y: 6px;
 	--console-item-padding-x: 10px;
-	--console-item-bg: var(--dark-2);
-	--console-item-border: 1px solid var(--dark-3);
+	--console-item-bg: var(--dark-color-2);
+	--console-item-border: 1px solid var(--dark-color-3);
 	--console-item-radius: 10px;
 	--console-item-grid-gap: 10px;
 	--console-item-accent: var(--info-color);
@@ -14,7 +14,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--console-gap);
-	color: var(--light-4);
+	color: var(--light-color-4);
 	font-size: var(--font-size-text);
 	font-family: var(--font-family-mono);
 }
@@ -56,11 +56,11 @@
 }
 
 .console__item--unread {
-	background: var(--dark-3);
+	background: var(--dark-color-3);
 }
 
 .console__time {
-	color: var(--light-2);
+	color: var(--light-color-2);
 	white-space: nowrap;
 }
 

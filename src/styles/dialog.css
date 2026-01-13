@@ -1,9 +1,9 @@
 .dialog {
 	--dialog-inset: 18px;
-	--dialog-bg: var(--dark-2);
-	--dialog-header-bg: var(--dark-3);
-	--dialog-content-bg: var(--dark-2);
-	--dialog-border: var(--dark-4);
+	--dialog-bg: var(--dark-color-2);
+	--dialog-header-bg: var(--dark-color-3);
+	--dialog-content-bg: var(--dark-color-2);
+	--dialog-border: var(--dark-color-4);
 	--dialog-shadow: 0 0 12px 4px var(--shadow-color);
 	--dialog-radius: 14px;
 	--dialog-header-padding-top: 8px;
@@ -12,14 +12,14 @@
 	--dialog-header-padding-left: 18px;
 	--dialog-content-padding: 16px;
 	--dialog-content-inset: 12px;
-	--dialog-content-surface: var(--dark-1);
+	--dialog-content-surface: var(--dark-color-1);
 	--dialog-content-radius: 10px;
-	--dialog-content-border: 1px solid var(--dark-3);
+	--dialog-content-border: 1px solid var(--dark-color-3);
 	--dialog-close-size: var(--button-size-lg);
 	--dialog-close-icon-size: var(--button-icon-size-lg);
-	--dialog-close-bg: var(--dark-2);
-	--dialog-close-fg: var(--light-4);
-	--dialog-close-highlight: var(--dark-4);
+	--dialog-close-bg: var(--dark-color-2);
+	--dialog-close-fg: var(--light-color-4);
+	--dialog-close-highlight: var(--dark-color-4);
 	--dialog-header-gap: 8px;
 	--dialog-title-size: var(--font-size-title);
 	--dialog-slide-offset: 100%;
@@ -30,7 +30,7 @@
 	bottom: var(--dialog-inset);
 	height: 50vh;
 	background: var(--dialog-bg);
-	color: var(--light-4);
+	color: var(--light-color-4);
 	border: 1px solid var(--dialog-border);
 	border-radius: var(--dialog-radius);
 	box-shadow: var(--dialog-shadow);
