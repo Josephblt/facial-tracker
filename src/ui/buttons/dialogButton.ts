@@ -11,6 +11,13 @@ type DialogButtonElements = {
 	iconTarget: HTMLElement;
 };
 
+export function createDialogButton(options: DialogButtonOptions): HTMLButtonElement {
+	const { button, iconTarget } = parseDialogButtonTemplate(template);
+	iconTarget.innerHTML = options.icon;
+	button.setAttribute("aria-label", options.ariaLabel);
+	return button;
+}
+
 const parseDialogButtonTemplate = (templateHtml: string): DialogButtonElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
@@ -27,10 +34,3 @@ const parseDialogButtonTemplate = (templateHtml: string): DialogButtonElements =
 
 	return { button, iconTarget };
 };
-
-export function createDialogButton(options: DialogButtonOptions): HTMLButtonElement {
-	const { button, iconTarget } = parseDialogButtonTemplate(template);
-	iconTarget.innerHTML = options.icon;
-	button.setAttribute("aria-label", options.ariaLabel);
-	return button;
-}

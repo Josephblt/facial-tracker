@@ -6,8 +6,6 @@
 	--menu-shadow: 0 0 12px 4px var(--shadow-color);
 	--menu-header-padding: 12px;
 	--menu-content-padding: 16px;
-	--menu-close-size: var(--button-size-lg);
-	--menu-close-icon-size: var(--button-icon-size-lg);
 	--menu-close-bg: var(--dark-color-2);
 	--menu-close-fg: var(--light-color-4);
 	--menu-close-highlight: var(--dark-color-4);
@@ -44,7 +42,7 @@
 }
 
 .menu__close {
-	--button-size: var(--menu-close-size);
+	--button-size: var(--button-size-lg);
 	--button-bg: var(--menu-close-bg);
 	--button-fg: var(--menu-close-fg);
 	--button-highlight: var(--menu-close-highlight);
@@ -53,8 +51,8 @@
 }
 
 .menu__close-icon {
-	width: var(--menu-close-icon-size);
-	height: var(--menu-close-icon-size);
+	width: var(--button-icon-size-lg);
+	height: var(--button-icon-size-lg);
 	display: inline-block;
 }
 
@@ -69,4 +67,3 @@
 	padding: var(--menu-content-padding);
 	overflow: auto;
 }
-

@@ -1,44 +1,24 @@
 import "../../styles/group.css";
 import template from "../../templates/controls/group-control.html?raw";
 
-export type SettingsGroup = {
+type Group = {
 	element: HTMLElement;
 	body: HTMLElement;
 	setTitle(title: string): void;
 	setDescription(description?: string | null): void;
 };
 
-type SettingsGroupElements = {
+type GroupElements = {
 	root: HTMLElement;
 	titleEl: HTMLElement;
 	descriptionEl: HTMLParagraphElement;
 	bodyEl: HTMLElement;
 };
 
-const parseGroupTemplate = (templateHtml: string): SettingsGroupElements => {
-	const view = document.createElement("template");
-	view.innerHTML = templateHtml.trim();
-
-	const root = view.content.firstElementChild as HTMLElement | null;
-	if (!root) {
-		throw new Error("Group template is missing a root element");
-	}
-
-	const titleEl = root.querySelector(".group__title") as HTMLElement | null;
-	const descriptionEl = root.querySelector(".group__description") as HTMLParagraphElement | null;
-	const bodyEl = root.querySelector(".group__body") as HTMLElement | null;
-
-	if (!titleEl || !descriptionEl || !bodyEl) {
-		throw new Error("Group template is missing required sections");
-	}
-
-	return { root, titleEl, descriptionEl, bodyEl };
-};
-
-export function createSettingsGroup(options: {
+export function createGroup(options: {
 	title: string;
 	description?: string | null;
-}): SettingsGroup {
+}): Group {
 	const { root, titleEl, descriptionEl, bodyEl } = parseGroupTemplate(template);
 
 	const setTitle = (title: string) => {
@@ -63,3 +43,22 @@ export function createSettingsGroup(options: {
 	};
 }
 
+const parseGroupTemplate = (templateHtml: string): GroupElements => {
+	const view = document.createElement("template");
+	view.innerHTML = templateHtml.trim();
+
+	const root = view.content.firstElementChild as HTMLElement | null;
+	if (!root) {
+		throw new Error("Group template is missing a root element");
+	}
+
+	const titleEl = root.querySelector(".group__title") as HTMLElement | null;
+	const descriptionEl = root.querySelector(".group__description") as HTMLParagraphElement | null;
+	const bodyEl = root.querySelector(".group__body") as HTMLElement | null;
+
+	if (!titleEl || !descriptionEl || !bodyEl) {
+		throw new Error("Group template is missing required sections");
+	}
+
+	return { root, titleEl, descriptionEl, bodyEl };
+};

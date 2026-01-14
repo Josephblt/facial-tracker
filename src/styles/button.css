@@ -1,11 +1,8 @@
-:root {
+.button {
 	--button-size-lg: 32px;
 	--button-icon-size-lg: 14px;
 	--button-size-sm: 32px;
 	--button-icon-size-sm: 14px;
-}
-
-.button {
 	--button-size: 64px;
 	--button-bg: var(--dark-color-2);
 	--button-fg: var(--light-color-4);
@@ -38,4 +35,3 @@
 .button:active {
 	transform: translateY(1px);
 }
-

@@ -11,6 +11,13 @@ type MenuButtonElements = {
 	iconTarget: HTMLElement;
 };
 
+export function createMenuButton(options: MenuButtonOptions): HTMLButtonElement {
+	const { button, iconTarget } = parseMenuButtonTemplate(template);
+	iconTarget.innerHTML = options.icon;
+	button.setAttribute("aria-label", options.ariaLabel);
+	return button;
+}
+
 const parseMenuButtonTemplate = (templateHtml: string): MenuButtonElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
@@ -27,10 +34,3 @@ const parseMenuButtonTemplate = (templateHtml: string): MenuButtonElements => {
 
 	return { button, iconTarget };
 };
-
-export function createMenuButton(options: MenuButtonOptions): HTMLButtonElement {
-	const { button, iconTarget } = parseMenuButtonTemplate(template);
-	iconTarget.innerHTML = options.icon;
-	button.setAttribute("aria-label", options.ariaLabel);
-	return button;
-}

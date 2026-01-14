@@ -2,7 +2,7 @@ import "../../styles/settings.css";
 import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
-import { createSettingsGroup } from "../controls/group-control";
+import { createGroup } from "../controls/group-control";
 import { createSettingsRangeControl } from "../controls/rangeControl";
 import { createSettingsSelectControl } from "../controls/selectControl";
 import { createSettingsToggleControl } from "../controls/toggleControl";
@@ -120,8 +120,8 @@ export function createSettingsComponent(
 	cameraService: CameraService
 ): SettingsComponent {
 	const { root, contentEl } = parseSettingsTemplate(template);
-	const deviceGroup = createSettingsGroup({ title: "Camera" });
-	const controlsGroup = createSettingsGroup({ title: "Controls" });
+	const deviceGroup = createGroup({ title: "Camera" });
+	const controlsGroup = createGroup({ title: "Controls" });
 	controlsGroup.element.hidden = true;
 
 	contentEl.append(deviceGroup.element, controlsGroup.element);

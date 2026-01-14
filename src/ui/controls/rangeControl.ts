@@ -16,35 +16,6 @@ type SettingsRangeElements = {
 	unitEl: HTMLElement;
 };
 
-const parseSettingsRangeTemplate = (templateHtml: string): SettingsRangeElements => {
-	const view = document.createElement("template");
-	view.innerHTML = templateHtml.trim();
-
-	const root = view.content.firstElementChild as HTMLElement | null;
-	if (!root) {
-		throw new Error("Settings range template is missing a root element");
-	}
-
-	const labelEl = root.querySelector(".settings-control__label") as HTMLLabelElement | null;
-	const inputEl = root.querySelector(".settings-control__input") as HTMLInputElement | null;
-	const valueEl = root.querySelector(".settings-control__value") as HTMLOutputElement | null;
-	const unitEl = root.querySelector(".settings-control__unit") as HTMLElement | null;
-
-	if (!labelEl || !inputEl || !valueEl || !unitEl) {
-		throw new Error("Settings range template is missing required sections");
-	}
-
-	return { root, labelEl, inputEl, valueEl, unitEl };
-};
-
-const formatValue = (value: number): string => {
-	if (Number.isInteger(value)) {
-		return String(value);
-	}
-	const fixed = value.toFixed(2);
-	return fixed.endsWith(".00") ? fixed.slice(0, -3) : fixed;
-};
-
 export function createSettingsRangeControl(options: {
 	id: string;
 	label: string;
@@ -76,10 +47,6 @@ export function createSettingsRangeControl(options: {
 		unitEl.style.display = hasUnit ? "inline" : "none";
 	};
 
-	const updateValueText = (value: number) => {
-		valueEl.textContent = formatValue(value);
-	};
-
 	const setValue = (value: number) => {
 		if (!Number.isFinite(value)) {
 			return;
@@ -101,6 +68,10 @@ export function createSettingsRangeControl(options: {
 		}
 	});
 
+	const updateValueText = (value: number) => {
+		valueEl.textContent = formatValue(value);
+	};
+
 	setLabel(options.label);
 	setUnit(options.unit);
 	setValue(options.min);
@@ -114,3 +85,32 @@ export function createSettingsRangeControl(options: {
 		}
 	};
 }
+
+const parseSettingsRangeTemplate = (templateHtml: string): SettingsRangeElements => {
+	const view = document.createElement("template");
+	view.innerHTML = templateHtml.trim();
+
+	const root = view.content.firstElementChild as HTMLElement | null;
+	if (!root) {
+		throw new Error("Settings range template is missing a root element");
+	}
+
+	const labelEl = root.querySelector(".settings-control__label") as HTMLLabelElement | null;
+	const inputEl = root.querySelector(".settings-control__input") as HTMLInputElement | null;
+	const valueEl = root.querySelector(".settings-control__value") as HTMLOutputElement | null;
+	const unitEl = root.querySelector(".settings-control__unit") as HTMLElement | null;
+
+	if (!labelEl || !inputEl || !valueEl || !unitEl) {
+		throw new Error("Settings range template is missing required sections");
+	}
+
+	return { root, labelEl, inputEl, valueEl, unitEl };
+};
+
+const formatValue = (value: number): string => {
+	if (Number.isInteger(value)) {
+		return String(value);
+	}
+	const fixed = value.toFixed(2);
+	return fixed.endsWith(".00") ? fixed.slice(0, -3) : fixed;
+};
