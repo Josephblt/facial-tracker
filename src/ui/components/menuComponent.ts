@@ -1,4 +1,4 @@
-import "../../styles/button.css";
+import "../../styles/controls/button.css";
 import "../../styles/menu.css";
 import template from "../../templates/components/menu-component.html?raw";
 import { closeIcon } from "../icons";

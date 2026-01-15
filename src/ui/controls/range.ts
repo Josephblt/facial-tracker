@@ -1,30 +1,30 @@
-import "../../styles/control.css";
-import template from "../../templates/controls/control-range.html?raw";
+import "../../styles/controls/range.css";
+import template from "../../templates/controls/range.html?raw";
 
-export type SettingsRangeControl = {
+type RangeControl = {
 	element: HTMLElement;
 	setValue(value: number): void;
 	setDisabled(disabled: boolean): void;
 	onInput(handler: (value: number) => void): void;
 };
 
-type SettingsRangeElements = {
-	root: HTMLElement;
+type RangeElements = {
+	rangeEl: HTMLElement;
 	labelEl: HTMLLabelElement;
 	inputEl: HTMLInputElement;
 	valueEl: HTMLOutputElement;
 	unitEl: HTMLElement;
 };
 
-export function createSettingsRangeControl(options: {
+export function createRangeControl(options: {
 	id: string;
 	label: string;
 	min: number;
 	max: number;
 	step: number;
 	unit?: string;
-}): SettingsRangeControl {
-	const { root, labelEl, inputEl, valueEl, unitEl } = parseSettingsRangeTemplate(template);
+}): RangeControl {
+	const { rangeEl, labelEl, inputEl, valueEl, unitEl } = parseRangeTemplate(template);
 	const inputHandlers = new Set<(value: number) => void>();
 	let min = options.min;
 	let max = options.max;
@@ -77,7 +77,7 @@ export function createSettingsRangeControl(options: {
 	setValue(options.min);
 
 	return {
-		element: root,
+		element: rangeEl,
 		setValue,
 		setDisabled,
 		onInput(handler: (value: number) => void) {
@@ -86,25 +86,18 @@ export function createSettingsRangeControl(options: {
 	};
 }
 
-const parseSettingsRangeTemplate = (templateHtml: string): SettingsRangeElements => {
+const parseRangeTemplate = (templateHtml: string): RangeElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
 
-	const root = view.content.firstElementChild as HTMLElement | null;
-	if (!root) {
-		throw new Error("Settings range template is missing a root element");
-	}
+	const rangeEl = view.content.firstElementChild as HTMLElement | null;
 
-	const labelEl = root.querySelector(".settings-control__label") as HTMLLabelElement | null;
-	const inputEl = root.querySelector(".settings-control__input") as HTMLInputElement | null;
-	const valueEl = root.querySelector(".settings-control__value") as HTMLOutputElement | null;
-	const unitEl = root.querySelector(".settings-control__unit") as HTMLElement | null;
+	const labelEl = rangeEl.querySelector(".range__label") as HTMLLabelElement | null;
+	const inputEl = rangeEl.querySelector(".range__input") as HTMLInputElement | null;
+	const valueEl = rangeEl.querySelector(".range__value") as HTMLOutputElement | null;
+	const unitEl = rangeEl.querySelector(".range__unit") as HTMLElement | null;
 
-	if (!labelEl || !inputEl || !valueEl || !unitEl) {
-		throw new Error("Settings range template is missing required sections");
-	}
-
-	return { root, labelEl, inputEl, valueEl, unitEl };
+	return { rangeEl, labelEl, inputEl, valueEl, unitEl };
 };
 
 const formatValue = (value: number): string => {

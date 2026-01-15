@@ -2,8 +2,8 @@ import "../../styles/settings.css";
 import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
-import { createGroup } from "../controls/group-control";
-import { createSettingsRangeControl } from "../controls/rangeControl";
+import { createGroup } from "../controls/groupControl";
+import { createRangeControl } from "../controls/range";
 import { createSettingsSelectControl } from "../controls/selectControl";
 import { createSettingsToggleControl } from "../controls/toggleControl";
 
@@ -180,8 +180,8 @@ export function createSettingsComponent(
 			}
 		};
 
-		updateWidthVar(".settings-control__label", "--settings-label-width");
-		updateWidthVar(".settings-control__meta", "--settings-meta-width");
+		updateWidthVar(".settings-control__label, .range__label", "--settings-label-width");
+		updateWidthVar(".settings-control__meta, .range__output", "--settings-meta-width");
 	};
 
 	const scheduleControlWidthUpdate = () => {
@@ -278,7 +278,7 @@ export function createSettingsComponent(
 
 			if (isRangeCapability(value)) {
 				const step = getRangeStep(value);
-				const rangeControl = createSettingsRangeControl({
+				const rangeControl = createRangeControl({
 					id: controlId,
 					label,
 					min: value.min,

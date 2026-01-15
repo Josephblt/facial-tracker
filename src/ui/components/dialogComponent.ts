@@ -1,4 +1,4 @@
-import "../../styles/button.css";
+import "../../styles/controls/button.css";
 import "../../styles/dialog.css";
 import template from "../../templates/components/dialog-component.html?raw";
 import { closeIcon } from "../icons";

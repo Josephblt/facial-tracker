@@ -15,9 +15,9 @@
 
 	--shadow-color: rgba(255, 255, 255, 0.1);
 
-	--font-size-title: 18px;
-	--font-size-menu: 15px;
-	--font-size-text: 11px;
+	--font-size-title: 23px;
+	--font-size-menu: 19px;
+	--font-size-text: 15px;
 
 	--font-family-ui: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 	--font-family-mono: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -25,7 +25,6 @@
 
 body {
 	background: var(--dark-color-1);
-	color: var(--light-color-4);
 	font-family: var(--font-family-ui);
 	-webkit-font-smoothing: antialiased;
 }

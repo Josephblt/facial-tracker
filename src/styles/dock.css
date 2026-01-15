@@ -1,50 +1,27 @@
 :root {
-	--dock-gap: 14px;
+	--dock-gap: 20px;
 	--dock-inset: 24px;
-	--dock-menu-inset: 18px;
-	--dock-button-size: 72px;
-	--dock-icon-size: 26px;
 }
 
 .dock-tray {
 	position: fixed;
-	right: var(--dock-inset);
-	bottom: var(--dock-inset);
+	padding: var(--dock-inset);
 	display: flex;
 	flex-direction: column;
 	gap: var(--dock-gap);
-	align-items: center;
 	z-index: 1200;
 }
 
-.dock-button {
-	z-index: 1300;
-	--button-size: var(--dock-button-size);
-	--button-bg: var(--dark-color-2);
-	--button-fg: var(--light-color-4);
-	--button-shadow: 0 0 7px 3px var(--shadow-color);
+.menu-tray {
+	top: 0;
+	left: 0;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
-.dock-button--hidden {
-	opacity: 0;
-	pointer-events: none;
+.dialog-tray {
+	right: 0;
+	bottom: 0;
+	align-items: flex-end;
+	justify-content: flex-end;
 }
-
-.dock-button--menu {
-	position: fixed;
-	top: var(--dock-menu-inset);
-	left: var(--dock-menu-inset);
-}
-
-.dock-button__icon {
-	display: inline-block;
-	width: var(--dock-icon-size);
-	height: var(--dock-icon-size);
-}
-
-.dock-button__icon svg {
-	width: 100%;
-	height: 100%;
-	display: block;
-}
-

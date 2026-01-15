@@ -1,4 +1,4 @@
-import "../../styles/button.css";
+import "../../styles/controls/button.css";
 import "../../styles/camera.css";
 import template from "../../templates/components/camera-component.html?raw";
 import { CameraService } from "../../services/cameraService";

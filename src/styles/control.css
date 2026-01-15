@@ -33,25 +33,9 @@
 	box-sizing: border-box;
 }
 
-.settings-control__input[type="range"] {
-	padding: 0;
-	height: 20px;
-	accent-color: var(--info-color);
-	flex: 1;
-	min-width: 0;
-}
-
 .settings-control__select {
 	width: 100%;
 	grid-column: 2;
-}
-
-.settings-control__meta {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	width: var(--settings-meta-width, auto);
-	justify-content: flex-start;
 }
 
 .settings-control__button {
@@ -69,21 +53,6 @@
 	width: 16px;
 	height: 16px;
 	accent-color: var(--info-color);
-}
-
-.settings-control__value {
-	text-align: left;
-	font-family: var(--font-family-mono);
-	font-size: 10px;
-	color: var(--light-color-3);
-	cursor: default;
-}
-
-.settings-control__unit {
-	text-align: left;
-	font-size: 10px;
-	color: var(--settings-muted-color);
-	cursor: default;
 }
 
 .settings-control__input:disabled,

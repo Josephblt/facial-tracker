@@ -63,27 +63,6 @@
 	font-weight: bold;
 }
 
-.dialog__close {
-	--button-size: var(--button-size-lg);
-	--button-bg: var(--dialog-close-bg);
-	--button-fg: var(--dialog-close-fg);
-	--button-highlight: var(--dialog-close-highlight);
-
-	flex: 0 0 auto;
-}
-
-.dialog__close-icon {
-	width: var(--button-icon-size-lg);
-	height: var(--button-icon-size-lg);
-	display: inline-block;
-}
-
-.dialog__close-icon svg {
-	width: 100%;
-	height: 100%;
-	display: block;
-}
-
 .dialog__content {
 	flex: 1 1 auto;
 	padding: var(--dialog-content-padding);
