@@ -1,6 +1,7 @@
 import "./styles/main.css";
 import { createDock } from "./ui/dock";
 import { createButton } from "./ui/controls/button";
+import type { ButtonOptions } from "./ui/controls/button";
 import { createDialog } from "./ui/components/dialogComponent";
 import { createConsoleComponent } from "./ui/components/consoleComponent";
 import { createMenuComponent } from "./ui/components/menuComponent";
@@ -15,27 +16,30 @@ appRoot.replaceChildren();
 
 const dock = createDock();
 
-const menuButton = createButton({
+const menuButtonOptions: ButtonOptions = {
 	icon: menuIcon,
 	ariaLabel: "Main Menu"
-});
+};
+const menuButton = createButton(menuButtonOptions);
 const menuComponent = createMenuComponent({
 	content: ""
 });
 
-const consoleButton = createButton({
+const consoleButtonOptions: ButtonOptions = {
 	icon: consoleIcon,
 	ariaLabel: "Console"
-});
+};
+const consoleButton = createButton(consoleButtonOptions);
 const consoleDialog = createDialog({
 	title: "Console",
 	content: ""
 });
 
-const settingsButton = createButton({
+const settingsButtonOptions: ButtonOptions = {
 	icon: settingsIcon,
 	ariaLabel: "Settings"
-});
+};
+const settingsButton = createButton(settingsButtonOptions);
 const settingsDialog = createDialog({
 	title: "Settings",
 	content: ""

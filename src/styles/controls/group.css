@@ -1,7 +1,6 @@
 .group {
 	--group-gap: 10px;
 	--group-header-gap: 4px;
-	--group-title-letter-spacing: 0.08em;
 	--group-body-column-gap: 12px;
 	--group-body-row-gap: 10px;
 
@@ -11,34 +10,32 @@
 }
 
 .group__header {
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	gap: var(--group-header-gap);
-	align-items: center;
 	text-align: center;
 }
 
 .group__title {
-	margin: 0;
-	color: var(--settings-label-color);
-	text-transform: uppercase;
-	letter-spacing: var(--group-title-letter-spacing);
+	color: var(--light-color-2);
 	font-size: var(--font-size-title);
-	cursor: default;
+	letter-spacing: var(--group-title-letter-spacing);
+	margin: 0;
+	text-transform: uppercase;
 }
 
 .group__description {
 	margin: 0;
-	color: var(--settings-muted-color);
+	color: var(--light-color-1);
 	font-size: var(--font-size-menu);
-	cursor: default;
 }
 
 .group__body {
+	align-items: center;
+	column-gap: var(--group-body-column-gap);
 	display: grid;
 	grid-template-columns: var(--settings-label-width, max-content) minmax(0, 1fr);
-	column-gap: var(--group-body-column-gap);
 	row-gap: var(--group-body-row-gap);
-	align-items: center;
 }
 

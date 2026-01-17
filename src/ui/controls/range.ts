@@ -1,30 +1,32 @@
 import "../../styles/controls/range.css";
 import template from "../../templates/controls/range.html?raw";
 
-type RangeControl = {
+export type Range = {
 	element: HTMLElement;
 	setValue(value: number): void;
 	setDisabled(disabled: boolean): void;
 	onInput(handler: (value: number) => void): void;
 };
 
-type RangeElements = {
-	rangeEl: HTMLElement;
-	labelEl: HTMLLabelElement;
-	inputEl: HTMLInputElement;
-	valueEl: HTMLOutputElement;
-	unitEl: HTMLElement;
-};
-
-export function createRangeControl(options: {
+export type RangeOptions = {
 	id: string;
 	label: string;
 	min: number;
 	max: number;
 	step: number;
 	unit?: string;
-}): RangeControl {
-	const { rangeEl, labelEl, inputEl, valueEl, unitEl } = parseRangeTemplate(template);
+};
+
+type RangeElements = {
+	element: HTMLElement;
+	labelEl: HTMLLabelElement;
+	inputEl: HTMLInputElement;
+	valueEl: HTMLOutputElement;
+	unitEl: HTMLElement;
+};
+
+export function createRangeControl(options: RangeOptions): Range {
+	const { element, labelEl, inputEl, valueEl, unitEl } = parseRangeTemplate(template);
 	const inputHandlers = new Set<(value: number) => void>();
 	let min = options.min;
 	let max = options.max;
@@ -60,6 +62,10 @@ export function createRangeControl(options: {
 		inputEl.disabled = disabled;
 	};
 
+	const updateValueText = (value: number) => {
+		valueEl.textContent = formatValue(value);
+	};
+
 	inputEl.addEventListener("input", () => {
 		const parsed = Number(inputEl.value);
 		updateValueText(parsed);
@@ -68,16 +74,12 @@ export function createRangeControl(options: {
 		}
 	});
 
-	const updateValueText = (value: number) => {
-		valueEl.textContent = formatValue(value);
-	};
-
 	setLabel(options.label);
 	setUnit(options.unit);
 	setValue(options.min);
 
 	return {
-		element: rangeEl,
+		element,
 		setValue,
 		setDisabled,
 		onInput(handler: (value: number) => void) {
@@ -90,14 +92,13 @@ const parseRangeTemplate = (templateHtml: string): RangeElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
 
-	const rangeEl = view.content.firstElementChild as HTMLElement | null;
+	const element = view.content.firstElementChild as HTMLElement;
+	const labelEl = element.querySelector(".range__label") as HTMLLabelElement;
+	const inputEl = element.querySelector(".range__input") as HTMLInputElement;
+	const valueEl = element.querySelector(".range__value") as HTMLOutputElement;
+	const unitEl = element.querySelector(".range__unit") as HTMLElement;
 
-	const labelEl = rangeEl.querySelector(".range__label") as HTMLLabelElement | null;
-	const inputEl = rangeEl.querySelector(".range__input") as HTMLInputElement | null;
-	const valueEl = rangeEl.querySelector(".range__value") as HTMLOutputElement | null;
-	const unitEl = rangeEl.querySelector(".range__unit") as HTMLElement | null;
-
-	return { rangeEl, labelEl, inputEl, valueEl, unitEl };
+	return { element, labelEl, inputEl, valueEl, unitEl };
 };
 
 const formatValue = (value: number): string => {

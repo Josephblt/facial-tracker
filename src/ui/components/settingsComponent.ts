@@ -2,7 +2,7 @@ import "../../styles/settings.css";
 import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
-import { createGroup } from "../controls/groupControl";
+import { createGroup } from "../controls/group";
 import { createRangeControl } from "../controls/range";
 import { createSettingsSelectControl } from "../controls/selectControl";
 import { createSettingsToggleControl } from "../controls/toggleControl";
@@ -132,7 +132,7 @@ export function createSettingsComponent(
 		options: [{ label: "Loading cameras...", value: "" }]
 	});
 	deviceControl.setDisabled(true);
-	deviceGroup.body.append(deviceControl.element);
+	deviceGroup.bodyEl.append(deviceControl.element);
 
 	const resetRow = document.createElement("div");
 	resetRow.className = "settings-control settings-control--action";
@@ -153,7 +153,7 @@ export function createSettingsComponent(
 
 	resetField.append(resetButton);
 	resetRow.append(resetLabel, resetField);
-	deviceGroup.body.append(resetRow);
+	deviceGroup.bodyEl.append(resetRow);
 
 	let controlBindings: ControlBinding[] = [];
 	const applyTimers = new Map<string, number>();
@@ -242,7 +242,7 @@ export function createSettingsComponent(
 	const buildControls = () => {
 		clearApplyTimers();
 		controlBindings = [];
-		controlsGroup.body.replaceChildren();
+		controlsGroup.bodyEl.replaceChildren();
 
 		const capabilities = cameraService.getCapabilities();
 		if (!capabilities) {
@@ -300,7 +300,7 @@ export function createSettingsComponent(
 					},
 					setDisabled: rangeControl.setDisabled
 				});
-				controlsGroup.body.append(rangeControl.element);
+				controlsGroup.bodyEl.append(rangeControl.element);
 				continue;
 			}
 
@@ -324,7 +324,7 @@ export function createSettingsComponent(
 					},
 					setDisabled: selectControl.setDisabled
 				});
-				controlsGroup.body.append(selectControl.element);
+				controlsGroup.bodyEl.append(selectControl.element);
 				continue;
 			}
 
@@ -347,7 +347,7 @@ export function createSettingsComponent(
 					},
 					setDisabled: toggleControl.setDisabled
 				});
-				controlsGroup.body.append(toggleControl.element);
+				controlsGroup.bodyEl.append(toggleControl.element);
 			}
 		}
 

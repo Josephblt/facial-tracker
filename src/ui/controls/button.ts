@@ -1,7 +1,7 @@
 import "../../styles/controls/button.css";
 import template from "../../templates/controls/button.html?raw";
 
-type ButtonOptions = {
+export type ButtonOptions = {
 	icon: string;
 	ariaLabel: string;
 };
@@ -22,8 +22,8 @@ const parseButtonTemplate = (templateHtml: string): ButtonElements => {
 	const view = document.createElement("template");
 	view.innerHTML = templateHtml.trim();
 
-	const button = view.content.firstElementChild as HTMLButtonElement | null;
-	const iconTarget = button.querySelector(".button__icon") as HTMLElement | null;
+	const button = view.content.firstElementChild as HTMLButtonElement;
+	const iconTarget = button.querySelector(".button__icon") as HTMLElement;
 	
 	return { button, iconTarget };
 };
