@@ -56,6 +56,7 @@ export function createRangeControl(options: RangeOptions): Range {
 		const clamped = Math.min(max, Math.max(min, value));
 		inputEl.value = String(clamped);
 		updateValueText(clamped);
+		updateTrackProgress(clamped);
 	};
 
 	const setDisabled = (disabled: boolean) => {
@@ -66,9 +67,24 @@ export function createRangeControl(options: RangeOptions): Range {
 		valueEl.textContent = formatValue(value);
 	};
 
+	const updateTrackProgress = (value: number) => {
+		if (!Number.isFinite(value)) {
+			return;
+		}
+		const span = max - min;
+		if (span <= 0) {
+			inputEl.style.setProperty("--range-progress", "0%");
+			return;
+		}
+		const percent = ((value - min) / span) * 100;
+		const clamped = Math.min(100, Math.max(0, percent));
+		inputEl.style.setProperty("--range-progress", `${clamped}%`);
+	};
+
 	inputEl.addEventListener("input", () => {
 		const parsed = Number(inputEl.value);
 		updateValueText(parsed);
+		updateTrackProgress(parsed);
 		for (const handler of inputHandlers) {
 			handler(parsed);
 		}
