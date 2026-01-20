@@ -3,7 +3,11 @@
 
 	--select-input-background: var(--color-primary);
 	--select-input-border: 1px solid var(--color-secondary-border);
+	--select-input-border-radius: 10px;
 	--select-input-color: var(--color-secondary);
+	--select-input-padding-y: 6px;
+	--select-input-padding-left: 6px;
+	--select-input-padding-right: 10px;
 
 	display: contents;
 }
@@ -17,24 +21,49 @@
 	text-align: right;
 }
 
-.select__input {
+.select__field {
+	align-items: center;
 	background: var(--select-input-background);
 	border: var(--select-input-border);
-	border-radius: var(--settings-input-radius);
+	border-radius: var(--select-input-border-radius);
+	box-sizing: border-box;
+	display: flex;
+	grid-column: 2;
+	padding-left: var(--select-input-padding-left);
+	padding-right: var(--select-input-padding-right);
+	width: 100%;
+}
+
+.select__input {
+	background: transparent;
+	border: none;
+	border-radius: var(--select-input-border-radius);
+	box-sizing: border-box;
 	color: var(--select-input-color);
-	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
 	font-family: var(--font-family-ui);
 	font-size: var(--font-size-text);
-	box-sizing: border-box;
+	min-width: 0;
+	padding: var(--select-input-padding-y);
 	width: 100%;
-	grid-column: 2;
+}
+
+.select__input:focus,
+.select__input:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
+
+.select__field--disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
 }
 
 .select__input:disabled {
-	opacity: 0.6;
 	cursor: not-allowed;
 }
 
 .select__input option {
 	background-color: var(--color-bg-surface);
+	border: var(--select-input-border);
+	border-radius: var(--select-input-border-radius);
 }

@@ -25,11 +25,12 @@ export type Select = {
 type SelectElements = {
 	element: HTMLElement;
 	labelEl: HTMLLabelElement;
+	fieldEl: HTMLDivElement;
 	selectEl: HTMLSelectElement;
 };
 
 export function createSelect(options: SelectOptions): Select {
-	const { element, labelEl, selectEl } = parseSelectTemplate(template);
+	const { element, labelEl, fieldEl, selectEl } = parseSelectTemplate(template);
 	const changeHandlers = new Set<(value: string) => void>();
 
 	selectEl.id = options.id;
@@ -49,6 +50,7 @@ export function createSelect(options: SelectOptions): Select {
 
 	const setDisabled = (disabled: boolean) => {
 		selectEl.disabled = disabled;
+		fieldEl.classList.toggle("select__field--disabled", disabled);
 	};
 
 	selectEl.addEventListener("change", () => {
@@ -81,9 +83,10 @@ const parseSelectTemplate = (templateHtml: string): SelectElements => {
 
 	const element = view.content.firstElementChild as HTMLElement | null;
 	const labelEl = element.querySelector(".select__label") as HTMLLabelElement | null;
+	const fieldEl = element.querySelector(".select__field") as HTMLDivElement | null;
 	const selectEl = element.querySelector(".select__input") as HTMLSelectElement | null;
 
-	return { element, labelEl, selectEl };
+	return { element, labelEl, fieldEl, selectEl };
 };
 
 const createOption = (option: SelectOption) => {
