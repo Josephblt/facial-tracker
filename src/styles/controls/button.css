@@ -1,31 +1,32 @@
 .button {
-	--button-size-lg: 64px;
-	--button-icon-size-lg: 22px;
-	--button-size-sm: 32px;
-	--button-icon-size-sm: 14px;
-	--button-size: var(--button-size-lg);
+	--button-bg: var(--color-primary);
+	--button-border: 1px solid var(--color-secondary-border);
+	--button-fg: var(--color-secondary);
+	--button-highlight: var(--color-primary-highlight);
+	--button-shadow: 0 0 7px 3px var(--color-primary-shadow);
+	--button-shadow-hover: 0 0 10px 5px var(--color-secondary-shadow);
+	
 	--button-icon-size: var(--button-icon-size-lg);
-	--button-bg: var(--dark-color-2);
-	--button-fg: var(--light-color-4);
-	--button-shadow: 0 0 7px 3px var(--shadow-color);
-	--button-shadow-hover: 0 0 10px 5px var(--shadow-color);
-	--button-border: 1px solid var(--dark-color-4);
-	--button-highlight: var(--dark-color-4);
+	--button-icon-size-lg: 22px;
+	--button-icon-size-sm: 14px;
+	
+	--button-size: var(--button-size-lg);
+	--button-size-lg: 64px;
+	--button-size-sm: 32px;	
 
-	width: var(--button-size);
-	height: var(--button-size);
-	border-radius: 50%;
-	background: var(--button-bg);
-	color: var(--button-fg);
-	display: inline-flex;
 	align-items: center;
-	justify-content: center;
+	background: var(--button-bg);
 	border: var(--button-border);
-	padding: 0;
-	cursor: pointer;
+	border-radius: 50%;
 	box-shadow: var(--button-shadow);
-	transition: background 250ms ease, box-shadow 250ms ease, transform 250ms ease,
-		opacity 250ms ease;
+	color: var(--button-fg);
+	cursor: pointer;
+	display: inline-flex;
+	height: var(--button-size);
+	justify-content: center;
+	padding: 0;
+	transition: box-shadow 250ms ease;
+	width: var(--button-size);
 }
 
 .button--hidden {
@@ -34,7 +35,7 @@
 }
 
 .button:hover {
-	background: linear-gradient(var(--button-highlight), var(--button-highlight)), var(--button-bg);
+	background: var(--button-highlight);
 	box-shadow: var(--button-shadow-hover);
 }
 
@@ -43,23 +44,29 @@
 }
 
 .button__icon {
-	width: var(--button-icon-size);
-	height: var(--button-icon-size);
 	display: inline-block;
+	height: var(--button-icon-size);
+	width: var(--button-icon-size);
 }
 
 .button__icon svg {
-	width: 100%;
-	height: 100%;
 	display: block;
+	height: 100%;
+	width: 100%;
 }
 
 .button-large {
-	--button-size: var(--button-size-lg);
 	--button-icon-size: var(--button-icon-size-lg);
+	--button-size: var(--button-size-lg);
 }
 
 .button-small {
-	--button-size: var(--button-size-sm);
+	--button-bg: var(--color-secondary);
+	--button-border: 1px solid var(--color-primary-border);
+	--button-fg: var(--color-primary);
+	--button-highlight: var(--color-secondary-highlight); 
 	--button-icon-size: var(--button-icon-size-sm);
+	--button-shadow: 0 0 7px 3px var(--color-secondary-shadow);
+	--button-shadow-hover: 0 0 10px 5px var(--color-primary-shadow);
+	--button-size: var(--button-size-sm);
 }

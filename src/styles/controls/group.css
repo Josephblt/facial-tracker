@@ -1,9 +1,11 @@
 .group {
 	--group-gap: 10px;
-	--group-header-gap: 4px;
+	
 	--group-body-column-gap: 12px;
 	--group-body-row-gap: 10px;
-
+	
+	--group-header-gap: 4px;
+	
 	display: flex;
 	flex-direction: column;
 	gap: var(--group-gap);
@@ -18,17 +20,9 @@
 }
 
 .group__title {
-	color: var(--light-color-2);
-	font-size: var(--font-size-title);
-	letter-spacing: var(--group-title-letter-spacing);
+	font-size: var(--font-size-md);
 	margin: 0;
 	text-transform: uppercase;
-}
-
-.group__description {
-	margin: 0;
-	color: var(--light-color-1);
-	font-size: var(--font-size-menu);
 }
 
 .group__body {

@@ -1,25 +1,28 @@
 .dialog {
 	--dialog-inset: 18px;
-	--dialog-bg: var(--dark-color-2);
-	--dialog-header-bg: var(--dark-color-3);
-	--dialog-content-bg: var(--dark-color-2);
-	--dialog-border: var(--dark-color-4);
-	--dialog-shadow: 0 0 12px 4px var(--shadow-color);
+	--dialog-border: var(--color-secondary-border);
+	--dialog-color: var(--color-secondary);
+	--dialog-shadow: 0 0 12px 4px var(--color-secondary-shadow);
 	--dialog-radius: 14px;
-	--dialog-header-padding-top: 8px;
-	--dialog-header-padding-right: 8px;
+	
+	--dialog-header-bg: var(--color-primary);
 	--dialog-header-padding-bottom: 8px;
 	--dialog-header-padding-left: 18px;
-	--dialog-content-padding: 16px;
+	--dialog-header-padding-right: 8px;
+	--dialog-header-padding-top: 8px;
+	--dialog-header-separator: 1px solid var(--color-secondary-border);
+	
+	--dialog-content-bg: var(--color-bg-surface);
+	--dialog-content-border: 1px solid var(--color-secondary-border);
 	--dialog-content-inset: 12px;
-	--dialog-content-surface: var(--dark-color-1);
+	--dialog-content-padding: 16px;
 	--dialog-content-radius: 10px;
-	--dialog-content-border: 1px solid var(--dark-color-3);
-	--dialog-close-bg: var(--dark-color-2);
-	--dialog-close-fg: var(--light-color-4);
-	--dialog-close-highlight: var(--dark-color-4);
+	--dialog-content-surface: var(--color-bg-main);
+	
 	--dialog-header-gap: 8px;
-	--dialog-title-size: var(--font-size-title);
+	
+	--dialog-title-size: var(--font-size-md);
+	
 	--dialog-slide-offset: 100%;
 
 	position: fixed;
@@ -28,7 +31,8 @@
 	bottom: var(--dialog-inset);
 	height: 50vh;
 	background: var(--dialog-bg);
-	color: var(--light-color-4);
+	color: var(--dialog-color);
+	cursor: default;
 	border: 1px solid var(--dialog-border);
 	border-radius: var(--dialog-radius);
 	box-shadow: var(--dialog-shadow);
@@ -55,12 +59,14 @@
 	padding: var(--dialog-header-padding-top) var(--dialog-header-padding-right)
 		var(--dialog-header-padding-bottom) var(--dialog-header-padding-left);
 	background: var(--dialog-header-bg);
+	border-bottom: var(--dialog-header-separator);
 }
 
 .dialog__title {
 	margin: 0;
 	font-size: var(--dialog-title-size);
 	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .dialog__content {

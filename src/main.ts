@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import "./styles/controls/scrollbar.css";
 import { createDock } from "./ui/dock";
 import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";

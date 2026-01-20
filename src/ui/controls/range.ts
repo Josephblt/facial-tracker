@@ -25,7 +25,7 @@ type RangeElements = {
 	unitEl: HTMLElement;
 };
 
-export function createRangeControl(options: RangeOptions): Range {
+export function createRange(options: RangeOptions): Range {
 	const { element, labelEl, inputEl, valueEl, unitEl } = parseRangeTemplate(template);
 	const inputHandlers = new Set<(value: number) => void>();
 	let min = options.min;

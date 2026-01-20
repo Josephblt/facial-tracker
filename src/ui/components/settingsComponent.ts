@@ -3,8 +3,8 @@ import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
 import { createGroup } from "../controls/group";
-import { createRangeControl } from "../controls/range";
-import { createSettingsSelectControl } from "../controls/selectControl";
+import { createRange } from "../controls/range";
+import { createSelect } from "../controls/select";
 import { createSettingsToggleControl } from "../controls/toggleControl";
 
 export type SettingsComponent = {
@@ -126,7 +126,7 @@ export function createSettingsComponent(
 
 	contentEl.append(deviceGroup.element, controlsGroup.element);
 
-	const deviceControl = createSettingsSelectControl({
+	const deviceControl = createSelect({
 		id: "settings-camera-select",
 		label: "Camera",
 		options: [{ label: "Loading cameras...", value: "" }]
@@ -180,7 +180,7 @@ export function createSettingsComponent(
 			}
 		};
 
-		updateWidthVar(".settings-control__label, .range__label", "--settings-label-width");
+		updateWidthVar(".settings-control__label, .select__label, .range__label", "--settings-label-width");
 		updateWidthVar(".settings-control__meta, .range__output", "--settings-meta-width");
 	};
 
@@ -278,7 +278,7 @@ export function createSettingsComponent(
 
 			if (isRangeCapability(value)) {
 				const step = getRangeStep(value);
-				const rangeControl = createRangeControl({
+				const rangeControl = createRange({
 					id: controlId,
 					label,
 					min: value.min,
@@ -305,7 +305,7 @@ export function createSettingsComponent(
 			}
 
 			if (isStringArray(value)) {
-				const selectControl = createSettingsSelectControl({
+				const selectControl = createSelect({
 					id: controlId,
 					label,
 					options: value.map(option => ({ label: option, value: option }))

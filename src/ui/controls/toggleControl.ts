@@ -1,4 +1,4 @@
-import "../../styles/control.css";
+import "../../styles/controls/settings-control.css";
 import template from "../../templates/controls/toggle-control.htm?raw";
 
 export type SettingsToggleControl = {

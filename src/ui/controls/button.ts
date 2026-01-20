@@ -7,12 +7,12 @@ export type ButtonOptions = {
 };
 
 type ButtonElements = {
-	button: HTMLButtonElement;
+	element: HTMLButtonElement;
 	iconTarget: HTMLElement;
 };
 
 export const createButton = (options: ButtonOptions): HTMLButtonElement => {
-	const { button, iconTarget } = parseButtonTemplate(template);
+	const { element: button, iconTarget } = parseButtonTemplate(template);
 	iconTarget.innerHTML = options.icon;
 	button.setAttribute("aria-label", options.ariaLabel);
 	return button;
@@ -25,5 +25,5 @@ const parseButtonTemplate = (templateHtml: string): ButtonElements => {
 	const button = view.content.firstElementChild as HTMLButtonElement;
 	const iconTarget = button.querySelector(".button__icon") as HTMLElement;
 	
-	return { button, iconTarget };
+	return { element: button, iconTarget };
 };

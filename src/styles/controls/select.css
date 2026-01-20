@@ -1,0 +1,40 @@
+.select {
+	--select-label-color: var(--color-secondary);
+
+	--select-input-background: var(--color-primary);
+	--select-input-border: 1px solid var(--color-secondary-border);
+	--select-input-color: var(--color-secondary);
+
+	display: contents;
+}
+
+.select__label {
+	color: var(--select-label-color);
+	font-size: var(--font-size-text);
+	grid-column: 1;
+	justify-self: end;
+	text-transform: uppercase;
+	text-align: right;
+}
+
+.select__input {
+	background: var(--select-input-background);
+	border: var(--select-input-border);
+	border-radius: var(--settings-input-radius);
+	color: var(--select-input-color);
+	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	box-sizing: border-box;
+	width: 100%;
+	grid-column: 2;
+}
+
+.select__input:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.select__input option {
+	background-color: var(--color-bg-surface);
+}

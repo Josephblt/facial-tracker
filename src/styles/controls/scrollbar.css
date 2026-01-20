@@ -1,0 +1,32 @@
+:root {
+	--scrollbar-size: 20px;
+	--scrollbar-track: transparent;
+
+	--scrollbar-thumb-background: var(--color-bg-surface);
+	--scrollbar-thumb-hover: var(--color-primary-highlight);
+	--scrollbar-thumb-border: 5px solid transparent;;
+	--scrollbar-thumb-box-shadow: inset 0 0 0 1px var(--color-secondary-border);
+}
+
+*::-webkit-scrollbar {
+	width: var(--scrollbar-size);
+	height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb-background);
+	border: var(--scrollbar-thumb-border);
+	background-clip: padding-box;
+	border-radius: calc(var(--scrollbar-size) / 2.0);
+	box-shadow: var(--scrollbar-thumb-box-shadow);
+	cursor: pointer;
+	transition: background 250s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-hover);
+	border: var(--scrollbar-thumb-border);
+	background-clip: padding-box;
+	border-radius: calc(var(--scrollbar-size) / 2.0);
+	box-shadow: var(--scrollbar-thumb-box-shadow);
+}

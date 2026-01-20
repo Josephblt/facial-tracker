@@ -3,28 +3,32 @@
 	--warn-color: rgba(242, 201, 76, 1);
 	--error-color: rgba(255, 107, 107, 1);
 	
-	--dark-color-1: rgba(11, 12, 15, 1);
-	--dark-color-2: rgba(20, 22, 26, 1);
-	--dark-color-3: rgba(30, 33, 38, 1);
-	--dark-color-4: rgba(41, 45, 51, 1);
-	
-	--light-color-1: rgba(138, 145, 154, 1);
-	--light-color-2: rgba(177, 182, 190, 1);
-	--light-color-3: rgba(214, 217, 223, 1);
-	--light-color-4: rgba(242, 243, 245, 1);
+	--color-primary: hsl(233, 37%, 17%);
+	--color-primary-border: hsl(233, 18%, 21%);
+  	--color-primary-highlight: hsl(233, 41%, 23%);
+	--color-primary-shadow: hsla(233, 18%, 21%, 0.5);
+	  
+  	--color-secondary: hsl(38, 42%, 53%);
+	--color-secondary-border: hsl(38, 18%, 21%);
+  	--color-secondary-highlight: hsl(38, 41%, 59%);
+	--color-secondary-shadow: hsla(37, 17%, 21%, 0.5);
+	  
+	--color-bg-main: hsl(216, 12%, 8%);
+  	--color-bg-surface: hsl(213, 13%, 14%);
 
-	--shadow-color: rgba(255, 255, 255, 0.1);
+  	--color-text-primary: hsl(30, 39%, 93%);
+  	--color-text-secondary: hsl(34, 7%, 63%);
 
-	--font-size-title: 23px;
-	--font-size-menu: 19px;
-	--font-size-text: 15px;
+	--font-size-lg: 23px;
+	--font-size-md: 19px;
+	--font-size-sm: 15px;
 
 	--font-family-ui: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 	--font-family-mono: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 body {
-	background: var(--dark-color-1);
+	background: var(--color-bg-main);
 	font-family: var(--font-family-ui);
 	-webkit-font-smoothing: antialiased;
 }
