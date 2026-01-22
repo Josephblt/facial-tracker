@@ -4,13 +4,16 @@ import { createDock } from "./ui/containers/dock";
 import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";
 import { createDialog } from "./ui/containers/dialogComponent";
-import { createConsoleComponent } from "./ui/components/consoleComponent";
+import { createConsoleComponent } from "./ui/components/console";
 import { createMenuComponent } from "./ui/containers/menuComponent";
 import { createCameraComponent } from "./ui/components/cameraComponent";
 import { createSettingsComponent } from "./ui/components/settingsComponent";
 import { ConsoleService } from "./services/consoleService";
 import { CameraService } from "./services/cameraService";
 import { menuIcon, consoleIcon, settingsIcon } from "./ui/icons";
+
+const consoleService = new ConsoleService();
+const cameraService = new CameraService(consoleService);
 
 const appRoot = document.getElementById("app") || document.body;
 appRoot.replaceChildren();
@@ -50,11 +53,9 @@ dock.addMenu(menuButton, menuComponent.element);
 dock.addDialog(consoleButton, consoleDialog.element);
 dock.addDialog(settingsButton, settingsDialog.element);
 
-const consoleService = new ConsoleService();
 const consoleComponent = createConsoleComponent(consoleService);
 consoleDialog.setContent(consoleComponent.element);
 
-const cameraService = new CameraService(consoleService);
 const cameraComponent = createCameraComponent(cameraService, {
 	ariaLabel: "Camera feed"
 });

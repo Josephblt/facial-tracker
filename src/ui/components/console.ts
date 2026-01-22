@@ -1,6 +1,6 @@
 import "../../styles/console.css";
 import template from "../../templates/components/console-component.html?raw";
-import type { LogEntry } from "../../dtos/log";
+import type { LogEntry } from "../../services/dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
 export type ConsoleComponent = {
@@ -11,54 +11,6 @@ export type ConsoleComponent = {
 type ConsoleElements = {
 	element: HTMLElement;
 	listEl: HTMLOListElement;
-};
-
-const formatTimestamp = (timestamp: Date | string): string => {
-	const value = timestamp instanceof Date ? timestamp : new Date(timestamp);
-	if (Number.isNaN(value.getTime())) {
-		return "";
-	}
-
-	return value.toLocaleTimeString([], {
-		hour: "2-digit",
-		minute: "2-digit",
-		second: "2-digit"
-	});
-};
-
-const formatTimestampTitle = (timestamp: Date | string): string => {
-	const value = timestamp instanceof Date ? timestamp : new Date(timestamp);
-	if (Number.isNaN(value.getTime())) {
-		return "";
-	}
-
-	return value.toLocaleString();
-};
-
-const createLogItem = (log: LogEntry): HTMLLIElement => {
-	const item = document.createElement("li");
-	item.className = `console__item console__item--${log.level}`;
-	item.dataset.logId = String(log.id);
-	item.classList.toggle("console__item--unread", !log.read);
-
-	const time = document.createElement("span");
-	time.className = "console__time";
-	time.textContent = formatTimestamp(log.timestamp);
-	const timeTitle = formatTimestampTitle(log.timestamp);
-	if (timeTitle) {
-		time.title = timeTitle;
-	}
-
-	const level = document.createElement("span");
-	level.className = "console__level";
-	level.textContent = log.level;
-
-	const message = document.createElement("span");
-	message.className = "console__message";
-	message.textContent = log.message;
-
-	item.append(time, level, message);
-	return item;
 };
 
 export function createConsoleComponent(service: ConsoleService): ConsoleComponent {
@@ -107,4 +59,52 @@ const parseConsoleTemplate = (templateHtml: string): ConsoleElements => {
 	const listEl = element.querySelector(".console__list") as HTMLOListElement | null;
 
 	return { element, listEl };
+};
+
+const createLogItem = (log: LogEntry): HTMLLIElement => {
+	const item = document.createElement("li");
+	item.className = `console__item console__item--${log.level}`;
+	item.dataset.logId = String(log.id);
+	item.classList.toggle("console__item--unread", !log.read);
+
+	const time = document.createElement("span");
+	time.className = "console__time";
+	time.textContent = formatTimestamp(log.timestamp);
+	const timeTitle = formatTimestampTitle(log.timestamp);
+	if (timeTitle) {
+		time.title = timeTitle;
+	}
+
+	const level = document.createElement("span");
+	level.className = "console__level";
+	level.textContent = log.level;
+
+	const message = document.createElement("span");
+	message.className = "console__message";
+	message.textContent = log.message;
+
+	item.append(time, level, message);
+	return item;
+};
+
+const formatTimestamp = (timestamp: Date | string): string => {
+	const value = timestamp instanceof Date ? timestamp : new Date(timestamp);
+	if (Number.isNaN(value.getTime())) {
+		return "";
+	}
+
+	return value.toLocaleTimeString([], {
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit"
+	});
+};
+
+const formatTimestampTitle = (timestamp: Date | string): string => {
+	const value = timestamp instanceof Date ? timestamp : new Date(timestamp);
+	if (Number.isNaN(value.getTime())) {
+		return "";
+	}
+
+	return value.toLocaleString();
 };

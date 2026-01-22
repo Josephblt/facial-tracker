@@ -1,4 +1,4 @@
-import type { LogEntry, LogEvent, LogLevel, LogEventType, UnreadCounts } from "../dtos/log";
+import type { LogEntry, LogEvent, LogEventType, LogLevel, UnreadCounts } from "./dtos/log";
 
 type Listener = (event: LogEvent) => void;
 
