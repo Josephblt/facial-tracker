@@ -243,19 +243,11 @@ const parseSelectTemplate = (templateHtml: string): SelectElements => {
 	view.innerHTML = templateHtml.trim();
 
 	const element = view.content.firstElementChild as HTMLElement | null;
-	if (!element) {
-		throw new Error("Select template is missing a root element");
-	}
-
 	const labelEl = element.querySelector(".select__label") as HTMLLabelElement | null;
 	const fieldEl = element.querySelector(".select__field") as HTMLDivElement | null;
 	const triggerEl = element.querySelector(".select__trigger") as HTMLButtonElement | null;
 	const valueEl = element.querySelector(".select__value") as HTMLSpanElement | null;
 	const panelEl = element.querySelector(".select__panel") as HTMLDivElement | null;
-
-	if (!labelEl || !fieldEl || !triggerEl || !valueEl || !panelEl) {
-		throw new Error("Select template is missing required sections");
-	}
 
 	return { element, labelEl, fieldEl, triggerEl, valueEl, panelEl };
 };
