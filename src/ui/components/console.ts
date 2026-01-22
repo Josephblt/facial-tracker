@@ -1,9 +1,9 @@
-import "../../styles/console.css";
-import template from "../../templates/components/console-component.html?raw";
+import "../../styles/components/console.css";
+import template from "../../templates/components/console.html?raw";
 import type { LogEntry } from "../../services/dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
-export type ConsoleComponent = {
+export type Console = {
 	element: HTMLElement;
 	clear(): void;
 };
@@ -13,7 +13,7 @@ type ConsoleElements = {
 	listEl: HTMLOListElement;
 };
 
-export function createConsoleComponent(service: ConsoleService): ConsoleComponent {
+export function createConsole(service: ConsoleService): Console {
 	const { element: root, listEl } = parseConsoleTemplate(template);
 	const items = new Map<number, HTMLLIElement>();
 

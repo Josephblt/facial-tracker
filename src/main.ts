@@ -3,9 +3,9 @@ import "./styles/controls/scrollbar.css";
 import { createDock } from "./ui/containers/dock";
 import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";
-import { createDialog } from "./ui/containers/dialogComponent";
-import { createConsoleComponent } from "./ui/components/console";
-import { createMenuComponent } from "./ui/containers/menuComponent";
+import { createDialog } from "./ui/containers/dialog";
+import { createConsole } from "./ui/components/console";
+import { createMenuComponent } from "./ui/containers/menu";
 import { createCameraComponent } from "./ui/components/cameraComponent";
 import { createSettingsComponent } from "./ui/components/settingsComponent";
 import { ConsoleService } from "./services/consoleService";
@@ -53,7 +53,7 @@ dock.addMenu(menuButton, menuComponent.element);
 dock.addDialog(consoleButton, consoleDialog.element);
 dock.addDialog(settingsButton, settingsDialog.element);
 
-const consoleComponent = createConsoleComponent(consoleService);
+const consoleComponent = createConsole(consoleService);
 consoleDialog.setContent(consoleComponent.element);
 
 const cameraComponent = createCameraComponent(cameraService, {
