@@ -12,10 +12,10 @@
 	--range-thumb-size: 20px;
 
 	--range-track-background: var(--color-bg-surface);
-	--range-track-progress-color: var(--color-primary-highlight);
+	--range-track-progress-color: var(--color-primary);
+	--range-track-progress-color-highlight: var(--color-primary-highlight);
 	--range-track-border: 1px solid var(--color-secondary-border);
 	--range-track-height: 14px;
-	--range-track-shadow: 0 0 7px 3px none;
 	--range-track-shadow-hover: 0 0 10px 5px var(--color-primary-shadow);
 	--range-track-radius: 7px;
 
@@ -82,7 +82,6 @@
 	);
   	border: var(--range-track-border);
   	border-radius: var(--range-track-radius);
-	box-shadow: var(--range-track-shadow);
   	cursor: pointer;
   	height: var(--range-track-height);
 	transition: box-shadow 250ms ease;
@@ -93,7 +92,6 @@
   	background: var(--range-track-background);
   	border: var(--range-track-border);
   	border-radius: var(--range-track-radius);
-	box-shadow: var(--range-track-shadow);
   	cursor: pointer;
   	height: var(--range-track-height);
 	transition: box-shadow 250ms ease;
@@ -107,6 +105,13 @@
 }
 
 .range__input[type=range]::-webkit-slider-runnable-track:hover {
+	background: linear-gradient(
+		to right,
+		var(--range-track-progress-color-highlight) 0%,
+		var(--range-track-progress-color-highlight) var(--range-progress, 0%),
+		var(--range-track-background) var(--range-progress, 0%),
+		var(--range-track-background) 100%
+	);
 	box-shadow: var(--range-track-shadow-hover);
 }
 
@@ -114,6 +119,9 @@
 	box-shadow: var(--range-track-shadow-hover);
 }
 
+.range__input[type=range]::-moz-range-progress:hover {
+	background: var(--range-track-progress-color-highlight);
+}
 
 
 .range__input:disabled {

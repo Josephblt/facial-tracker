@@ -1,6 +1,10 @@
 <div class="select">
 	<label class="select__label"></label>
 	<div class="select__field">
-		<select class="select__input"></select>
+		<button class="select__input select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+			<span class="select__value"></span>
+			<span class="select__chevron" aria-hidden="true"></span>
+		</button>
+		<div class="select__panel" role="listbox"></div>
 	</div>
 </div>

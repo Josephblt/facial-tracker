@@ -1,19 +1,41 @@
 .select {
 	--select-label-color: var(--color-secondary);
 
-	--select-input-background: var(--color-primary);
+	--select-field-background: var(--color-primary);
+	--select-field-background-highlight: var(--color-primary-highlight);
+	--select-field-disabled-opacity: 0.6;
+	--select-field-shadow-hover: 0 0 10px 5px var(--color-primary-shadow);	
+
 	--select-input-border: 1px solid var(--color-secondary-border);
 	--select-input-border-radius: 10px;
 	--select-input-color: var(--color-secondary);
 	--select-input-padding-y: 6px;
 	--select-input-padding-left: 6px;
-	--select-input-padding-right: 10px;
+	--select-input-padding-right: 6px;
+
+	--select-chevron-border-left: 5px solid transparent;
+	--select-chevron-border-right: 5px solid transparent;
+	--select-chevron-border-top: 6px solid var(--select-input-color);
+
+	--select-panel-background: var(--color-bg-surface);
+	--select-panel-border: 1px solid var(--color-secondary-border);
+	--select-panel-offset: 5px;
+	--select-panel-max-height: 300px;
+	--select-panel-radius: 10px;
+	--select-panel-shadow-hover: 0 0 10px 5px var(--color-primary-shadow);	
+	
+	--select-option-color: var(--color-secondary);
+	--select-option-padding-x: 10px;
+	--select-option-padding-y: 6px;
+	--select-option-hover-background: var(--color-primary-highlight);
+	--select-option-selected-background: var(--color-primary);
 
 	display: contents;
 }
 
 .select__label {
 	color: var(--select-label-color);
+	font-family: var(--font-family-ui);
 	font-size: var(--font-size-text);
 	grid-column: 1;
 	justify-self: end;
@@ -23,7 +45,7 @@
 
 .select__field {
 	align-items: center;
-	background: var(--select-input-background);
+	background: var(--select-field-background);
 	border: var(--select-input-border);
 	border-radius: var(--select-input-border-radius);
 	box-sizing: border-box;
@@ -31,20 +53,47 @@
 	grid-column: 2;
 	padding-left: var(--select-input-padding-left);
 	padding-right: var(--select-input-padding-right);
+	position: relative;
+	transition: box-shadow 250ms ease;
 	width: 100%;
 }
 
+.select__field:hover {
+	background: var(--select-field-background-highlight);
+	box-shadow: var(--select-field-shadow-hover);
+}
+
+.select__field--disabled {
+	opacity: var(--select-field-disabled-opacity);
+	cursor: not-allowed;
+}
+
+.select__field--open .select__chevron {
+	transform: rotate(180deg);
+}
+
+.select__field--open .select__panel {
+	display: block;
+}
+
 .select__input {
+	appearance: none;
 	background: transparent;
 	border: none;
-	border-radius: var(--select-input-border-radius);
 	box-sizing: border-box;
 	color: var(--select-input-color);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
 	font-family: var(--font-family-ui);
 	font-size: var(--font-size-text);
-	min-width: 0;
+	flex: 1;
 	padding: var(--select-input-padding-y);
-	width: 100%;
+	text-align: left;
+}
+
+.select__input:disabled {
+	cursor: not-allowed;
 }
 
 .select__input:focus,
@@ -53,17 +102,57 @@
 	box-shadow: none;
 }
 
-.select__field--disabled {
-	opacity: 0.6;
-	cursor: not-allowed;
+.select__value {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.select__input:disabled {
-	cursor: not-allowed;
+.select__chevron {
+	border-left: var(--select-chevron-border-left);
+	border-right: var(--select-chevron-border-right);
+	border-top: var(--select-chevron-border-top);
+	transition: transform 150ms ease;
 }
 
-.select__input option {
-	background-color: var(--color-bg-surface);
-	border: var(--select-input-border);
-	border-radius: var(--select-input-border-radius);
+.select__panel {
+	background: var(--select-panel-background);
+	border: var(--select-panel-border);
+	border-radius: var(--select-panel-radius);
+	display: none;
+	max-height: var(--select-panel-max-height);
+	overflow-y: auto;
+	position: absolute;	
+	top: calc(100% + var(--select-panel-offset));
+	margin-left: var(--select-input-padding-left);
+	transition: box-shadow 250ms ease;
+	z-index: 10;
+}
+
+.select__panel:hover {
+	box-shadow: var(--select-panel-shadow-hover);
+}
+
+.select__option {
+	background: transparent;
+	border: none;
+	color: var(--select-option-color);
+	cursor: pointer;
+	display: block;
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	padding: var(--select-option-padding-y) var(--select-option-padding-x);
+	text-align: left;
+	width: 100%;
+}
+
+.select__option:hover,
+.select__option:focus-visible {
+	background: var(--select-option-hover-background);
+	outline: none;
+}
+
+.select__option--selected {
+	background: var(--select-option-selected-background);
 }
