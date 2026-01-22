@@ -1,11 +1,12 @@
 import "../../styles/settings.css";
+import "../../styles/controls/settings-control.css";
 import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
 import { createGroup } from "../controls/group";
 import { createRange } from "../controls/range";
 import { createSelect } from "../controls/select";
-import { createSettingsToggleControl } from "../controls/toggleControl";
+import { createToggle } from "../controls/toggle";
 
 export type SettingsComponent = {
 	element: HTMLElement;
@@ -180,7 +181,7 @@ export function createSettingsComponent(
 			}
 		};
 
-		updateWidthVar(".settings-control__label, .select__label, .range__label", "--settings-label-width");
+		updateWidthVar(".settings-control__label, .select__label, .toggle__label, .range__label", "--settings-label-width");
 		updateWidthVar(".settings-control__meta, .range__output", "--settings-meta-width");
 	};
 
@@ -329,7 +330,7 @@ export function createSettingsComponent(
 			}
 
 			if (typeof value === "boolean") {
-				const toggleControl = createSettingsToggleControl({
+				const toggleControl = createToggle({
 					id: controlId,
 					label
 				});

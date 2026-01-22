@@ -1,0 +1,42 @@
+.toggle {
+	--toggle-label-color: var(--color-secondary);
+	
+	--toggle-field-gap: 8px;
+	
+	--toggle-input-width: 16px;
+	--toggle-input-height: 16px;
+	
+	--toggle-disabled-opacity: 0.6;
+
+	display: contents;
+}
+
+.toggle__label {
+	color: var(--toggle-label-color);
+	text-transform: uppercase;
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	cursor: default;
+	text-align: right;
+	justify-self: end;
+	grid-column: 1;
+}
+
+.toggle__field {
+	display: flex;
+	align-items: center;
+	gap: var(--toggle-field-gap);
+	width: 100%;
+	grid-column: 2;
+}
+
+.toggle__input {
+	width: var(--toggle-input-width);
+	height: var(--toggle-input-height);
+	accent-color: var(--info-color);
+}
+
+.toggle__input:disabled {
+	opacity: var(--toggle-disabled-opacity);
+	cursor: not-allowed;
+}
