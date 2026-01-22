@@ -1,5 +1,5 @@
-import "../styles/dock.css";
-import dockTemplate from "../templates/dock.html?raw";
+import "../../styles/containers/dock.css";
+import dockTemplate from "../../templates/containers/dock.html?raw";
 
 type Dock = {
 	addMenu(button: HTMLButtonElement, component: HTMLElement): void;

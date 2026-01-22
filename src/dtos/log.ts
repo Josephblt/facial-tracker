@@ -1,5 +1,4 @@
 export type LogLevel = "info" | "warn" | "error";
-export type LogEventType = "add" | "update";
 
 export interface LogEntry {
 	id: number;
@@ -8,6 +7,8 @@ export interface LogEntry {
 	timestamp: Date;
 	read: boolean;
 }
+
+export type LogEventType = "add" | "update";
 
 export interface LogEvent {
 	type: LogEventType;

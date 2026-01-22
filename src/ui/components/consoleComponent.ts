@@ -1,6 +1,6 @@
 import "../../styles/console.css";
 import template from "../../templates/components/console-component.html?raw";
-import type { LogEntry } from "../../dto/log";
+import type { LogEntry } from "../../dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
 export type ConsoleComponent = {
@@ -9,26 +9,8 @@ export type ConsoleComponent = {
 };
 
 type ConsoleElements = {
-	root: HTMLElement;
+	element: HTMLElement;
 	listEl: HTMLOListElement;
-};
-
-const parseConsoleTemplate = (templateHtml: string): ConsoleElements => {
-	const view = document.createElement("template");
-	view.innerHTML = templateHtml.trim();
-
-	const root = view.content.firstElementChild as HTMLElement | null;
-	if (!root) {
-		throw new Error("Console template is missing a root element");
-	}
-
-	const listEl = root.querySelector(".console__list") as HTMLOListElement | null;
-
-	if (!listEl) {
-		throw new Error("Console template is missing required sections");
-	}
-
-	return { root, listEl };
 };
 
 const formatTimestamp = (timestamp: Date | string): string => {
@@ -80,7 +62,7 @@ const createLogItem = (log: LogEntry): HTMLLIElement => {
 };
 
 export function createConsoleComponent(service: ConsoleService): ConsoleComponent {
-	const { root, listEl } = parseConsoleTemplate(template);
+	const { element: root, listEl } = parseConsoleTemplate(template);
 	const items = new Map<number, HTMLLIElement>();
 
 	const addLog = (log: LogEntry) => {
@@ -116,3 +98,13 @@ export function createConsoleComponent(service: ConsoleService): ConsoleComponen
 		}
 	};
 }
+
+const parseConsoleTemplate = (templateHtml: string): ConsoleElements => {
+	const view = document.createElement("template");
+	view.innerHTML = templateHtml.trim();
+
+	const element = view.content.firstElementChild as HTMLElement | null;
+	const listEl = element.querySelector(".console__list") as HTMLOListElement | null;
+
+	return { element, listEl };
+};

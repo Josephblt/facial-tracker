@@ -1,6 +1,6 @@
 import "../../styles/controls/button.css";
-import "../../styles/dialog.css";
-import template from "../../templates/components/dialog-component.html?raw";
+import "../../styles/containers/dialog.css";
+import template from "../../templates/containers/dialog-component.html?raw";
 import { closeIcon } from "../icons";
 
 export type Dialog = {

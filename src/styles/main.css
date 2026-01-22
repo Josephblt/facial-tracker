@@ -25,6 +25,10 @@
 
 	--font-family-ui: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 	--font-family-mono: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+	--bottom-layer: 0;
+	--middle-layer: 10;
+	--top-layer: 20;
 }
 
 body {

@@ -1,11 +1,11 @@
 import "./styles/main.css";
 import "./styles/controls/scrollbar.css";
-import { createDock } from "./ui/dock";
+import { createDock } from "./ui/containers/dock";
 import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";
-import { createDialog } from "./ui/components/dialogComponent";
+import { createDialog } from "./ui/containers/dialogComponent";
 import { createConsoleComponent } from "./ui/components/consoleComponent";
-import { createMenuComponent } from "./ui/components/menuComponent";
+import { createMenuComponent } from "./ui/containers/menuComponent";
 import { createCameraComponent } from "./ui/components/cameraComponent";
 import { createSettingsComponent } from "./ui/components/settingsComponent";
 import { ConsoleService } from "./services/consoleService";
