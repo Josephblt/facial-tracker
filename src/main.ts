@@ -4,10 +4,10 @@ import { createDock } from "./ui/containers/dock";
 import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";
 import { createDialog } from "./ui/containers/dialog";
-import { createConsole } from "./ui/components/console";
+import { createConsoleContent } from "./ui/content/console";
 import { createMenuComponent } from "./ui/containers/menu";
-import { createCameraComponent } from "./ui/components/cameraComponent";
-import { createSettingsComponent } from "./ui/components/settingsComponent";
+import { createCameraComponent } from "./ui/content/cameraComponent";
+import { createSettingsContent } from "./ui/content/settings";
 import { ConsoleService } from "./services/consoleService";
 import { CameraService } from "./services/cameraService";
 import { menuIcon, consoleIcon, settingsIcon } from "./ui/icons";
@@ -53,17 +53,17 @@ dock.addMenu(menuButton, menuComponent.element);
 dock.addDialog(consoleButton, consoleDialog.element);
 dock.addDialog(settingsButton, settingsDialog.element);
 
-const consoleComponent = createConsole(consoleService);
-consoleDialog.setContent(consoleComponent.element);
+const consoleContent = createConsoleContent(consoleService);
+consoleDialog.setContent(consoleContent.element);
 
 const cameraComponent = createCameraComponent(cameraService, {
 	ariaLabel: "Camera feed"
 });
 appRoot.appendChild(cameraComponent.element);
 
-const settingsComponent = createSettingsComponent(cameraComponent, cameraService);
-settingsDialog.setContent(settingsComponent.element);
+const settingsContent = createSettingsContent(cameraComponent, cameraService);
+settingsDialog.setContent(settingsContent.element);
 
 void cameraComponent.start().finally(() => {
-	void settingsComponent.refreshCameras();
+	void settingsContent.refreshCameras();
 });

@@ -1,6 +1,5 @@
-import "../../styles/settings.css";
+import "../../styles/content/settings.css";
 import "../../styles/controls/settings-control.css";
-import template from "../../templates/components/settings-component.html?raw";
 import type { CameraController } from "./cameraComponent";
 import { CameraService } from "../../services/cameraService";
 import { createGroup } from "../controls/group";
@@ -8,14 +7,9 @@ import { createRange } from "../controls/range";
 import { createSelect } from "../controls/select";
 import { createToggle } from "../controls/toggle";
 
-export type SettingsComponent = {
+export type SettingsContent = {
 	element: HTMLElement;
 	refreshCameras(): Promise<void>;
-};
-
-type SettingsElements = {
-	root: HTMLElement;
-	contentEl: HTMLElement;
 };
 
 type ControlBinding = {
@@ -51,23 +45,6 @@ const UNIT_BY_KEY: Record<string, string> = {
 const HIDDEN_KEYS = new Set(["deviceId", "groupId"]);
 
 const PRIORITY_KEYS = ["width", "height", "frameRate", "facingMode"];
-
-const parseSettingsTemplate = (templateHtml: string): SettingsElements => {
-	const view = document.createElement("template");
-	view.innerHTML = templateHtml.trim();
-
-	const root = view.content.firstElementChild as HTMLElement | null;
-	if (!root) {
-		throw new Error("Settings template is missing a root element");
-	}
-
-	const contentEl = root.querySelector(".settings__content") as HTMLElement | null;
-	if (!contentEl) {
-		throw new Error("Settings template is missing required sections");
-	}
-
-	return { root, contentEl };
-};
 
 const formatLabel = (key: string): string => {
 	if (LABEL_OVERRIDES[key]) {
@@ -116,11 +93,17 @@ const sortCapabilityKeys = ([keyA]: [string, unknown], [keyB]: [string, unknown]
 	return priorityA - priorityB;
 };
 
-export function createSettingsComponent(
+export function createSettingsContent(
 	camera: CameraController,
 	cameraService: CameraService
-): SettingsComponent {
-	const { root, contentEl } = parseSettingsTemplate(template);
+): SettingsContent {
+	const element = document.createElement("div");
+	element.className = "settings";
+
+	const contentEl = document.createElement("div");
+	contentEl.className = "settings__content";
+	element.appendChild(contentEl);
+
 	const deviceGroup = createGroup({ title: "Camera" });
 	const controlsGroup = createGroup({ title: "Controls" });
 	controlsGroup.element.hidden = true;
@@ -163,8 +146,8 @@ export function createSettingsComponent(
 
 	const updateControlWidths = () => {
 		const updateWidthVar = (selector: string, variableName: string) => {
-			root.style.removeProperty(variableName);
-			const elements = Array.from(root.querySelectorAll<HTMLElement>(selector));
+			element.style.removeProperty(variableName);
+			const elements = Array.from(element.querySelectorAll<HTMLElement>(selector));
 			if (!elements.length) {
 				return;
 			}
@@ -177,7 +160,7 @@ export function createSettingsComponent(
 			}
 
 			if (maxWidth > 0) {
-				root.style.setProperty(variableName, `${Math.ceil(maxWidth)}px`);
+				element.style.setProperty(variableName, `${Math.ceil(maxWidth)}px`);
 			}
 		};
 
@@ -415,12 +398,12 @@ export function createSettingsComponent(
 		void refreshCameras();
 	});
 
-	root.addEventListener("input", () => {
+	element.addEventListener("input", () => {
 		scheduleControlWidthUpdate();
 	});
 
 	return {
-		element: root,
+		element,
 		refreshCameras
 	};
 }

@@ -1,20 +1,22 @@
-import "../../styles/components/console.css";
-import template from "../../templates/components/console.html?raw";
+import "../../styles/content/console.css";
 import type { LogEntry } from "../../services/dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
-export type Console = {
+export type ConsoleContent = {
 	element: HTMLElement;
 	clear(): void;
 };
 
-type ConsoleElements = {
-	element: HTMLElement;
-	listEl: HTMLOListElement;
-};
+export function createConsoleContent(service: ConsoleService): ConsoleContent {
+	const element = document.createElement("div");
+	element.className = "console";
+	element.setAttribute("role", "log");
+	element.setAttribute("aria-live", "polite");
 
-export function createConsole(service: ConsoleService): Console {
-	const { element: root, listEl } = parseConsoleTemplate(template);
+	const listEl = document.createElement("ol");
+	listEl.className = "console__list";
+	element.appendChild(listEl);
+
 	const items = new Map<number, HTMLLIElement>();
 
 	const addLog = (log: LogEntry) => {
@@ -43,23 +45,13 @@ export function createConsole(service: ConsoleService): Console {
 	}
 
 	return {
-		element: root,
+		element,
 		clear() {
 			items.clear();
 			listEl.replaceChildren();
 		}
 	};
 }
-
-const parseConsoleTemplate = (templateHtml: string): ConsoleElements => {
-	const view = document.createElement("template");
-	view.innerHTML = templateHtml.trim();
-
-	const element = view.content.firstElementChild as HTMLElement | null;
-	const listEl = element.querySelector(".console__list") as HTMLOListElement | null;
-
-	return { element, listEl };
-};
 
 const createLogItem = (log: LogEntry): HTMLLIElement => {
 	const item = document.createElement("li");
