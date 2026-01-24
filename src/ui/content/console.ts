@@ -21,21 +21,6 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 
 	const items = new Map<number, HTMLLIElement>();
 
-	listEl.addEventListener("click", (e) => {
-		const item = (e.target as HTMLElement).closest<HTMLLIElement>(".log");
-		if (!item) return;
-
-		const logId = Number(item.dataset.logId);
-		const log = service.getLogs().find(l => l.id === logId);
-		if (!log) return;
-
-		if (log.read) {
-			service.markUnread(logId);
-		} else {
-			service.markRead(logId);
-		}
-	});
-
 	const addLog = (log: LogEntry) => {
 		const item = createLogItem(log);
 		items.set(log.id, item);
@@ -55,6 +40,21 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 		}
 
 		updateLog(event.log);
+	});
+
+	listEl.addEventListener("click", (e) => {
+		const item = (e.target as HTMLElement).closest<HTMLLIElement>(".log");
+		if (!item) return;
+
+		const logId = Number(item.dataset.logId);
+		const log = service.getLogs().find(l => l.id === logId);
+		if (!log) return;
+
+		if (log.read) {
+			service.markUnread(logId);
+		} else {
+			service.markRead(logId);
+		}
 	});
 
 	for (const log of service.getLogs()) {
