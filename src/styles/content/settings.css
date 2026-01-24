@@ -5,7 +5,7 @@
 	--settings-label-color: var(--light-color-2);
 	--settings-input-bg: var(--dark-color-3);
 	--settings-input-border: 1px solid var(--dark-color-4);
-	--settings-input-radius: 8px;
+	--settings-input-radius: 10px;
 	--settings-input-padding-y: 6px;
 	--settings-input-padding-x: 10px;
 	--settings-muted-color: var(--light-color-1);
@@ -14,7 +14,7 @@
 	flex-direction: column;
 	gap: var(--settings-gap);
 	color: var(--settings-color);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 }
 
 .settings__content {
@@ -30,7 +30,7 @@
 .settings__reset-label {
 	color: var(--settings-label-color);
 	text-transform: uppercase;
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	cursor: default;
 	text-align: right;
 	justify-self: end;
@@ -52,7 +52,7 @@
 	color: var(--light-color-4);
 	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
 	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	cursor: pointer;
 }
 

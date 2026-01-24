@@ -15,7 +15,7 @@
 	color: var(--toggle-label-color);
 	text-transform: uppercase;
 	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	cursor: default;
 	text-align: right;
 	justify-self: end;

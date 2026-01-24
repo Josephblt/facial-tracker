@@ -1,77 +1,67 @@
 .console {
-	--console-gap: 12px;
-	--console-item-gap: 8px;
+	--console-item-gap: 5px;
 	--console-item-padding-y: 6px;
 	--console-item-padding-x: 10px;
-	--console-item-bg: var(--dark-color-2);
-	--console-item-border: 1px solid var(--dark-color-3);
+	--console-item-border: 1px solid var(--color-secondary-border);
 	--console-item-radius: 10px;
-	--console-item-grid-gap: 10px;
+	--console-item-grid-gap: 16px;
 	--console-item-accent: var(--info-color);
-	--console-level-letter-spacing: 0.08em;
+	--console-item-background-accent: var(--info-color-accent);
 
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: var(--console-gap);
-	color: var(--light-color-4);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-sm);
 	font-family: var(--font-family-mono);
 }
 
 .console__list {
 	margin: calc(-1 * var(--dialog-content-inset));
-	padding: var(--dialog-content-inset);
-	list-style: none;
+	margin-top: 0;
+	padding: 0 var(--dialog-content-inset) var(--dialog-content-inset);
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
-	
 	gap: var(--console-item-gap);
-	overflow: auto;
-	flex: 1 1 auto;
 }
 
 .console__item {
+	background: var(--color-bg-surface);
 	display: grid;
 	grid-template-columns: auto auto 1fr;
 	gap: var(--console-item-grid-gap);
-	align-items: start;
 	padding: var(--console-item-padding-y) var(--console-item-padding-x);
-	background: var(--console-item-bg);
 	border: var(--console-item-border);
 	border-radius: var(--console-item-radius);
-	border-left: 3px solid var(--console-item-accent);
+	border-left: 25px solid var(--console-item-accent);
+	cursor: pointer;
 }
 
 .console__item--info {
 	--console-item-accent: var(--info-color);
+	--console-item-background-accent: var(--info-color-background);
 }
 
 .console__item--warn {
 	--console-item-accent: var(--warn-color);
+	--console-item-background-accent: var(--warn-color-background);
 }
 
 .console__item--error {
 	--console-item-accent: var(--error-color);
+	--console-item-background-accent: var(--error-color-background);
 }
 
 .console__item--unread {
-	background: var(--dark-color-3);
+	background: var(--console-item-background-accent);
 }
 
 .console__time {
-	color: var(--light-color-2);
+	color: var(--console-item-accent);
 	white-space: nowrap;
 }
 
 .console__level {
+	color: var(--console-item-accent);
 	text-transform: uppercase;
-	letter-spacing: var(--console-level-letter-spacing);
-	font-size: var(--font-size-text);
 }
 
 .console__message {
-	min-width: 0;
 	word-break: break-word;
 }

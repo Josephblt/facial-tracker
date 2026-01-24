@@ -36,7 +36,7 @@
 .select__label {
 	color: var(--select-label-color);
 	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	grid-column: 1;
 	justify-self: end;
 	text-transform: uppercase;
@@ -86,7 +86,7 @@
 	display: flex;
 	align-items: center;
 	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	flex: 1;
 	padding: var(--select-input-padding-y);
 	text-align: left;
@@ -141,7 +141,7 @@
 	cursor: pointer;
 	display: block;
 	font-family: var(--font-family-ui);
-	font-size: var(--font-size-text);
+	font-size: var(--font-size-md);
 	padding: var(--select-option-padding-y) var(--select-option-padding-x);
 	text-align: left;
 	width: 100%;

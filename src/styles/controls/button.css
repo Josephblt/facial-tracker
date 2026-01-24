@@ -5,14 +5,14 @@
 	--button-highlight: var(--color-primary-highlight);
 	--button-shadow: 0 0 7px 3px var(--color-primary-shadow);
 	--button-shadow-hover: 0 0 10px 5px var(--color-secondary-shadow);
-	
+
 	--button-icon-size: var(--button-icon-size-lg);
 	--button-icon-size-lg: 22px;
 	--button-icon-size-sm: 14px;
-	
+
 	--button-size: var(--button-size-lg);
 	--button-size-lg: 64px;
-	--button-size-sm: 32px;	
+	--button-size-sm: 32px;
 
 	align-items: center;
 	background: var(--button-bg);
@@ -48,23 +48,17 @@
 	height: var(--button-icon-size);
 	width: var(--button-icon-size);
 }
-
 .button__icon svg {
 	display: block;
 	height: 100%;
 	width: 100%;
 }
 
-.button-large {
-	--button-icon-size: var(--button-icon-size-lg);
-	--button-size: var(--button-size-lg);
-}
-
 .button-small {
 	--button-bg: var(--color-secondary);
 	--button-border: 1px solid var(--color-primary-border);
 	--button-fg: var(--color-primary);
-	--button-highlight: var(--color-secondary-highlight); 
+	--button-highlight: var(--color-secondary-highlight);
 	--button-icon-size: var(--button-icon-size-sm);
 	--button-shadow: 0 0 7px 3px var(--color-secondary-shadow);
 	--button-shadow-hover: 0 0 10px 5px var(--color-primary-shadow);
