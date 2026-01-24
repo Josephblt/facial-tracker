@@ -1,9 +1,7 @@
-:root {
-	--dock-gap: 20px;
-	--dock-inset: 24px;
-}
-
 .dock-tray {
+	--dock-gap: 10px;
+	--dock-inset: 24px;
+
 	position: fixed;
 	padding: var(--dock-inset);
 	display: flex;

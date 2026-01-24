@@ -1,6 +1,6 @@
 import "../../styles/controls/button.css";
 import "../../styles/camera.css";
-import template from "../../templates/content/camera-component.html?raw";
+import template from "../../templates/content/camera.html?raw";
 import { CameraService } from "../../services/cameraService";
 
 export type CameraComponent = {

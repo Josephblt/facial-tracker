@@ -1,6 +1,5 @@
 import "../../styles/content/settings.css";
-import "../../styles/controls/settings-control.css";
-import type { CameraController } from "./cameraComponent";
+import type { CameraController } from "./camera";
 import { CameraService } from "../../services/cameraService";
 import { createGroup } from "../controls/group";
 import { createRange } from "../controls/range";
@@ -119,17 +118,17 @@ export function createSettingsContent(
 	deviceGroup.bodyEl.append(deviceControl.element);
 
 	const resetRow = document.createElement("div");
-	resetRow.className = "settings-control settings-control--action";
+	resetRow.className = "settings__reset";
 
 	const resetLabel = document.createElement("span");
-	resetLabel.className = "settings-control__label";
+	resetLabel.className = "settings__reset-label";
 	resetLabel.textContent = "Reset";
 
 	const resetField = document.createElement("div");
-	resetField.className = "settings-control__field";
+	resetField.className = "settings__reset-field";
 
 	const resetButton = document.createElement("button");
-	resetButton.className = "settings-control__button";
+	resetButton.className = "settings__reset-button";
 	resetButton.type = "button";
 	resetButton.id = "settings-reset-button";
 	resetButton.textContent = "Reset defaults";
@@ -164,8 +163,8 @@ export function createSettingsContent(
 			}
 		};
 
-		updateWidthVar(".settings-control__label, .select__label, .toggle__label, .range__label", "--settings-label-width");
-		updateWidthVar(".settings-control__meta, .range__output", "--settings-meta-width");
+		updateWidthVar(".settings__reset-label, .select__label, .toggle__label, .range__label", "--settings-label-width");
+		updateWidthVar(".range__output", "--settings-meta-width");
 	};
 
 	const scheduleControlWidthUpdate = () => {

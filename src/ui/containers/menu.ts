@@ -3,12 +3,12 @@ import "../../styles/containers/menu.css";
 import template from "../../templates/containers/menu.html?raw";
 import { closeIcon } from "../icons";
 
-export type MenuComponent = {
+export type Menu = {
 	element: HTMLElement;
 	setContent(content: string | Node): void;
 };
 
-export type MenuComponentOptions = {
+export type MenuOptions = {
 	content?: string | Node;
 };
 
@@ -19,7 +19,7 @@ type MenuElements = {
 	closeIconTarget: HTMLElement;
 };
 
-export function createMenuComponent(options: MenuComponentOptions): MenuComponent {
+export function createMenu(options: MenuOptions): Menu {
 	const { element, contentEl, closeButton, closeIconTarget } = parseMenuTemplate(template);
 
 	const setContent = (content: string | Node) => {

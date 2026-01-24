@@ -29,7 +29,7 @@
 	left: var(--dialog-inset);
 	right: var(--dialog-inset);
 	bottom: var(--dialog-inset);
-	height: 50vh;
+	height: 50%;
 	background: var(--dialog-bg);
 	color: var(--dialog-color);
 	cursor: default;
@@ -56,8 +56,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--dialog-header-gap);
-	padding: var(--dialog-header-padding-top) var(--dialog-header-padding-right)
-		var(--dialog-header-padding-bottom) var(--dialog-header-padding-left);
+	padding: var(--dialog-header-padding-top) var(--dialog-header-padding-right) var(--dialog-header-padding-bottom) var(--dialog-header-padding-left);
 	background: var(--dialog-header-bg);
 	border-bottom: var(--dialog-header-separator);
 }

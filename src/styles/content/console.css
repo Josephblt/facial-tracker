@@ -20,12 +20,13 @@
 }
 
 .console__list {
-	margin: 0;
-	padding: 0;
+	margin: calc(-1 * var(--dialog-content-inset));
+	padding: var(--dialog-content-inset);
 	list-style: none;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	
 	gap: var(--console-item-gap);
 	overflow: auto;
 	flex: 1 1 auto;

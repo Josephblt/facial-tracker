@@ -5,8 +5,8 @@ import { createButton } from "./ui/controls/button";
 import type { ButtonOptions } from "./ui/controls/button";
 import { createDialog } from "./ui/containers/dialog";
 import { createConsoleContent } from "./ui/content/console";
-import { createMenuComponent } from "./ui/containers/menu";
-import { createCameraComponent } from "./ui/content/cameraComponent";
+import { createMenu } from "./ui/containers/menu";
+import { createCameraComponent } from "./ui/content/camera";
 import { createSettingsContent } from "./ui/content/settings";
 import { ConsoleService } from "./services/consoleService";
 import { CameraService } from "./services/cameraService";
@@ -25,7 +25,7 @@ const menuButtonOptions: ButtonOptions = {
 	ariaLabel: "Main Menu"
 };
 const menuButton = createButton(menuButtonOptions);
-const menuComponent = createMenuComponent({
+const menu = createMenu({
 	content: ""
 });
 
@@ -49,17 +49,17 @@ const settingsDialog = createDialog({
 	content: ""
 });
 
-dock.addMenu(menuButton, menuComponent.element);
+dock.addMenu(menuButton, menu.element);
 dock.addDialog(consoleButton, consoleDialog.element);
 dock.addDialog(settingsButton, settingsDialog.element);
-
-const consoleContent = createConsoleContent(consoleService);
-consoleDialog.setContent(consoleContent.element);
 
 const cameraComponent = createCameraComponent(cameraService, {
 	ariaLabel: "Camera feed"
 });
 appRoot.appendChild(cameraComponent.element);
+
+const consoleContent = createConsoleContent(consoleService);
+consoleDialog.setContent(consoleContent.element);
 
 const settingsContent = createSettingsContent(cameraComponent, cameraService);
 settingsDialog.setContent(settingsContent.element);

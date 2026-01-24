@@ -1,4 +1,5 @@
 .settings {
+	--settings-color: var(--color-secondary);
 	--settings-gap: 16px;
 	--settings-section-gap: 12px;
 	--settings-label-color: var(--light-color-2);
@@ -12,7 +13,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--settings-gap);
-	color: var(--light-color-4);
+	color: var(--settings-color);
 	font-size: var(--font-size-text);
 }
 
@@ -20,4 +21,42 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--settings-section-gap);
+}
+
+.settings__reset {
+	display: contents;
+}
+
+.settings__reset-label {
+	color: var(--settings-label-color);
+	text-transform: uppercase;
+	font-size: var(--font-size-text);
+	cursor: default;
+	text-align: right;
+	justify-self: end;
+	grid-column: 1;
+}
+
+.settings__reset-field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	grid-column: 2;
+}
+
+.settings__reset-button {
+	background: var(--settings-input-bg);
+	border: var(--settings-input-border);
+	border-radius: var(--settings-input-radius);
+	color: var(--light-color-4);
+	padding: var(--settings-input-padding-y) var(--settings-input-padding-x);
+	font-family: var(--font-family-ui);
+	font-size: var(--font-size-text);
+	cursor: pointer;
+}
+
+.settings__reset-button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
 }
