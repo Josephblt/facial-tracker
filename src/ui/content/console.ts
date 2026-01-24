@@ -1,4 +1,6 @@
 import "../../styles/content/console.css";
+import "../../styles/content/log.css";
+import logTemplate from "../../templates/content/log.html?raw";
 import type { LogEntry } from "../../services/dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
@@ -20,7 +22,7 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 	const items = new Map<number, HTMLLIElement>();
 
 	listEl.addEventListener("click", (e) => {
-		const item = (e.target as HTMLElement).closest<HTMLLIElement>(".console__item");
+		const item = (e.target as HTMLElement).closest<HTMLLIElement>(".log");
 		if (!item) return;
 
 		const logId = Number(item.dataset.logId);
@@ -43,7 +45,7 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 	const updateLog = (log: LogEntry) => {
 		const item = items.get(log.id);
 		if (!item) return;
-		item.classList.toggle("console__item--unread", !log.read);
+		item.classList.toggle("log--unread", !log.read);
 	};
 
 	service.onLogChanged((event) => {
@@ -69,28 +71,27 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 }
 
 const createLogItem = (log: LogEntry): HTMLLIElement => {
-	const item = document.createElement("li");
-	item.className = `console__item console__item--${log.level}`;
-	item.dataset.logId = String(log.id);
-	item.classList.toggle("console__item--unread", !log.read);
+	const template = document.createElement("template");
+	template.innerHTML = logTemplate.trim();
 
-	const time = document.createElement("span");
-	time.className = "console__time";
+	const item = template.content.firstElementChild as HTMLLIElement;
+	item.classList.add(`log--${log.level}`);
+	item.dataset.logId = String(log.id);
+	item.classList.toggle("log--unread", !log.read);
+
+	const time = item.querySelector(".log__time") as HTMLElement;
 	time.textContent = formatTimestamp(log.timestamp);
 	const timeTitle = formatTimestampTitle(log.timestamp);
 	if (timeTitle) {
 		time.title = timeTitle;
 	}
 
-	const level = document.createElement("span");
-	level.className = "console__level";
+	const level = item.querySelector(".log__level") as HTMLElement;
 	level.textContent = log.level;
 
-	const message = document.createElement("span");
-	message.className = "console__message";
+	const message = item.querySelector(".log__message") as HTMLElement;
 	message.textContent = log.message;
 
-	item.append(time, level, message);
 	return item;
 };
 

@@ -1,0 +1,64 @@
+.log {
+	--log-accent: var(--info-color);
+	--log-accent-width: 25px;
+	--log-background-accent: var(--info-color-background);
+	--log-border: 1px solid var(--color-secondary-border);
+	--log-grid-gap: 20px;
+	--log-padding-x: 10px;
+	--log-padding-y: 6px;
+	--log-radius: 10px;
+
+	background: var(--color-bg-surface);
+	border: var(--log-border);
+	border-radius: var(--log-radius);
+	cursor: pointer;
+	display: grid;
+	gap: var(--log-grid-gap);
+	grid-template-columns: auto auto 1fr;
+	overflow: hidden;
+	padding: var(--log-padding-y) var(--log-padding-x);
+	padding-left: calc(var(--log-padding-x) + var(--log-accent-width));
+	position: relative;
+}
+
+.log::before {
+	background: var(--log-accent);
+	bottom: 0;
+	content: "";
+	position: absolute;
+	top: 0;
+	width: var(--log-accent-width);
+}
+
+.log--info {
+	--log-accent: var(--info-color);
+	--log-background-accent: var(--info-color-background);
+}
+
+.log--warn {
+	--log-accent: var(--warn-color);
+	--log-background-accent: var(--warn-color-background);
+}
+
+.log--error {
+	--log-accent: var(--error-color);
+	--log-background-accent: var(--error-color-background);
+}
+
+.log--unread {
+	background: var(--log-background-accent);
+}
+
+.log__time {
+	color: var(--log-accent);
+	white-space: nowrap;
+}
+
+.log__level {
+	color: var(--log-accent);
+	text-transform: uppercase;
+}
+
+.log__message {
+	word-break: break-word;
+}
