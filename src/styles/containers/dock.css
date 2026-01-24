@@ -1,5 +1,5 @@
 .dock-tray {
-	--dock-gap: 10px;
+	--dock-gap: 20px;
 	--dock-inset: 24px;
 
 	position: fixed;

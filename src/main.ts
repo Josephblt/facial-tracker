@@ -2,6 +2,7 @@ import "./styles/main.css";
 import "./styles/controls/scrollbar.css";
 import { createDock } from "./ui/containers/dock";
 import { createButton } from "./ui/controls/button";
+import { createBadge } from "./ui/controls/badge";
 import type { ButtonOptions } from "./ui/controls/button";
 import { createDialog } from "./ui/containers/dialog";
 import { createConsoleContent } from "./ui/content/console";
@@ -34,6 +35,10 @@ const consoleButtonOptions: ButtonOptions = {
 	ariaLabel: "Console"
 };
 const consoleButton = createButton(consoleButtonOptions);
+const consoleBadge = createBadge();
+consoleButton.style.position = "relative";
+consoleButton.appendChild(consoleBadge.element);
+
 const consoleDialog = createDialog({
 	title: "Console",
 	content: ""
@@ -60,6 +65,10 @@ appRoot.appendChild(cameraComponent.element);
 
 const consoleContent = createConsoleContent(consoleService);
 consoleDialog.setContent(consoleContent.element);
+
+consoleService.onLogChanged((event) => {
+	consoleBadge.update(event.counts);
+});
 
 const settingsContent = createSettingsContent(cameraComponent, cameraService);
 settingsDialog.setContent(settingsContent.element);
