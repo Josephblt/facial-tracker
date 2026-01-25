@@ -4,12 +4,12 @@ import logTemplate from "../../templates/content/log.html?raw";
 import type { LogEntry } from "../../services/dtos/log";
 import { ConsoleService } from "../../services/consoleService";
 
-export type ConsoleContent = {
+export type Console = {
 	element: HTMLElement;
 	clear(): void;
 };
 
-export function createConsoleContent(service: ConsoleService): ConsoleContent {
+export function createConsole(service: ConsoleService): Console {
 	const element = document.createElement("div");
 	element.className = "console";
 	element.setAttribute("role", "log");
@@ -33,15 +33,6 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 		item.classList.toggle("log--unread", !log.read);
 	};
 
-	service.onLogChanged((event) => {
-		if (event.type === "add") {
-			addLog(event.log);
-			return;
-		}
-
-		updateLog(event.log);
-	});
-
 	listEl.addEventListener("click", (e) => {
 		const item = (e.target as HTMLElement).closest<HTMLLIElement>(".log");
 		if (!item) return;
@@ -57,9 +48,18 @@ export function createConsoleContent(service: ConsoleService): ConsoleContent {
 		}
 	});
 
+	service.onLogChanged((event) => {
+		if (event.type === "add") {
+			addLog(event.log);
+			return;
+		}
+
+		updateLog(event.log);
+	});
+
 	for (const log of service.getLogs()) {
 		addLog(log);
-	}
+	}	
 
 	return {
 		element,

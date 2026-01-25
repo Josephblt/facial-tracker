@@ -6,7 +6,7 @@ import { createRange } from "../controls/range";
 import { createSelect } from "../controls/select";
 import { createToggle } from "../controls/toggle";
 
-export type SettingsContent = {
+export type Settings = {
 	element: HTMLElement;
 	refreshCameras(): Promise<void>;
 };
@@ -92,10 +92,10 @@ const sortCapabilityKeys = ([keyA]: [string, unknown], [keyB]: [string, unknown]
 	return priorityA - priorityB;
 };
 
-export function createSettingsContent(
+export function createSettings(
 	camera: CameraController,
 	cameraService: CameraService
-): SettingsContent {
+): Settings {
 	const element = document.createElement("div");
 	element.className = "settings";
 
