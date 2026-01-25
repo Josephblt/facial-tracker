@@ -1,23 +1,21 @@
 import "./styles/main.css";
 import "./styles/controls/scrollbar.css";
 import { createDock } from "./ui/containers/dock";
-import { createButton } from "./ui/controls/button";
+import { createButton, type ButtonOptions } from "./ui/controls/button";
 import { createBadge } from "./ui/controls/badge";
-import type { ButtonOptions } from "./ui/controls/button";
-import { createDialog } from "./ui/containers/dialog";
+import { createDialog, type DialogOptions } from "./ui/containers/dialog";
 import { createConsole } from "./ui/content/console";
 import { createMenu } from "./ui/containers/menu";
-import { createCameraComponent } from "./ui/content/camera";
 import { createSettings } from "./ui/content/settings";
 import { ConsoleService } from "./services/consoleService";
-import { CameraService } from "./services/cameraService";
 import { menuIcon, consoleIcon, settingsIcon } from "./ui/icons";
 
 function initializeMenu(dock: ReturnType<typeof createDock>) {
-	const menuButton = createButton({
+	const menuButtonOptions: ButtonOptions = {
 		icon: menuIcon,
 		ariaLabel: "Main Menu"
-	});
+	};
+	const menuButton = createButton(menuButtonOptions);
 	const menu = createMenu({
 		content: ""
 	});
@@ -25,19 +23,24 @@ function initializeMenu(dock: ReturnType<typeof createDock>) {
 	dock.addMenu(menuButton, menu.element);
 }
 
-function initializeConsole(consoleService: ConsoleService, dock: ReturnType<typeof createDock>) {
-	const consoleButton = createButton({
+function initializeConsole(dock: ReturnType<typeof createDock>) {
+	const consoleService = new ConsoleService();
+
+	const consoleButtonOptions: ButtonOptions = {
 		icon: consoleIcon,
 		ariaLabel: "Console"
-	});	
+	};
+	const consoleButton = createButton(consoleButtonOptions);
+	
 	const consoleBadge = createBadge();
 	consoleButton.style.position = "relative";
 	consoleButton.appendChild(consoleBadge.element);
 
-	const consoleDialog = createDialog({
+	const consoleDialogOptions: DialogOptions = {
 		title: "Console",
 		content: ""
-	});
+	};
+	const consoleDialog = createDialog(consoleDialogOptions);
 
 	const console = createConsole(consoleService);
 	consoleDialog.setContent(console.element);
@@ -49,47 +52,29 @@ function initializeConsole(consoleService: ConsoleService, dock: ReturnType<type
 	dock.addDialog(consoleButton, consoleDialog.element);
 }
 
-function initializeSettings(
-	cameraComponent: ReturnType<typeof createCameraComponent>,
-	cameraService: CameraService,
-	dock: ReturnType<typeof createDock>
-) {
-	const settingsButton = createButton({
+function initializeSettings(dock: ReturnType<typeof createDock>) {
+	const settingsButtonOptions: ButtonOptions = {
 		icon: settingsIcon,
 		ariaLabel: "Settings"
-	});
-	const settingsDialog = createDialog({
+	};
+	const settingsButton = createButton(settingsButtonOptions);
+	const settingsDialogOptions: DialogOptions = {
 		title: "Settings",
 		content: ""
-	});
+	};
+	const settingsDialog = createDialog(settingsDialogOptions);
 
-	const settings = createSettings(cameraComponent, cameraService);
+	const settings = createSettings();
 	settingsDialog.setContent(settings.element);
 
 	dock.addDialog(settingsButton, settingsDialog.element);
-
-	return {
-		refreshCameras: () => settings.refreshCameras()
-	};
 }
-
-const consoleService = new ConsoleService();
-const cameraService = new CameraService(consoleService);
 
 const appRoot = document.getElementById("app") || document.body;
 appRoot.replaceChildren();
 
 const dock = createDock();
 
-const cameraComponent = createCameraComponent(cameraService, {
-	ariaLabel: "Camera feed"
-});
-appRoot.appendChild(cameraComponent.element);
-
 initializeMenu(dock);
-initializeConsole(consoleService, dock);
-const settings = initializeSettings(cameraComponent, cameraService, dock);
-
-void cameraComponent.start().finally(() => {
-	void settings.refreshCameras();
-});
+initializeConsole(dock);
+initializeSettings(dock);
